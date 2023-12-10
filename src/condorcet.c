@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "condorcet.h"
 
-int nb_candidat;
 int nb_votant;
+int nb_candidat;
 
-void condorcet(int votes[nb_votant][nb_candidat], int *resultats) {
-
-  int c = 0;
+void condorcet(int nb_votant, int nb_candidat, int votes[nb_votant][nb_candidat], int *resultats) {
+  // int c = 0;
   for (int i = 0; i < nb_votant; i++) {
     for (int j = 0; j < nb_votant; j++) {
       int positionCandidat1 = -1;
@@ -58,6 +58,7 @@ void condorcet(int votes[nb_votant][nb_candidat], int *resultats) {
       printf("\n");
     }
   }
+
 }
 
 int trouverVainqueur(int *resultats) {
@@ -72,7 +73,13 @@ int trouverVainqueur(int *resultats) {
   return vainqueur;
 }
 
-int main() {
+int methodeCondorcet() {
+    printf("\n\n\033[1;34m============================================================\n");
+printf("============================================================\n");
+printf("=========================\033[1;31mCONDORCET\033[1;34m==========================\n");
+printf("============================================================\n");
+printf("============================================================\n\n\033[0m");
+
   int votes[5][4] = {
       {1, 3, 2, 4}, {4, 1, 2, 3}, {4, 1, 3, 2}, {4, 2, 1, 3}, {4, 3, 2, 1}};
 
@@ -82,8 +89,8 @@ int main() {
   printf("nb_votant %d, nb_candidat %d\n", nb_votant, nb_candidat);
 
   int *resultats =malloc(sizeof(int) * nb_candidat);
+  condorcet(nb_votant, nb_candidat, votes, resultats);
 
-  condorcet(votes, resultats);
 
   int vainqueur = trouverVainqueur(resultats);
 

@@ -1,20 +1,11 @@
+#define _DEFAULT_SOURCE
+#define _SVID_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "uninominale.h"
 
-typedef struct {
-  int **data;
-  int rows;
-  int cols;
-} t_mat_int_dyn;
 
-typedef struct {
-  char **candidats;
-  int nb_candidats;
-  char *vainqueur;
-  int nb_votants;
-  int score;
-} t_resultat_uninominale;
 
 t_mat_int_dyn init_mat_int_dyn(int rows, int cols) {
   t_mat_int_dyn mat;
@@ -59,8 +50,7 @@ void free_resultat_uninominale(t_resultat_uninominale *resultat) {
   free(resultat->vainqueur);
 }
 
-t_resultat_uninominale uninominale_un_tour(const t_mat_int_dyn *mat_votes,
-                                           int nb_candidats) {
+t_resultat_uninominale uninominale_un_tour(const t_mat_int_dyn *mat_votes, int nb_candidats) {
   t_resultat_uninominale resultat = init_resultat_uninominale(nb_candidats);
 
   // Calculer le total des votes pour chaque candidat
@@ -70,8 +60,7 @@ t_resultat_uninominale uninominale_un_tour(const t_mat_int_dyn *mat_votes,
     for (int j = 0; j < nb_candidats; ++j) {
       scores[i] += mat_votes->data[i][j];
     }
-    resultat.nb_votants +=
-        scores[i]; // Ajouté : mise à jour du nombre de votants
+    resultat.nb_votants +=  scores[i]; // Ajouté : mise à jour du nombre de votants
   }
 
   // Trouver le candidat avec le score le plus élevé
@@ -87,9 +76,7 @@ t_resultat_uninominale uninominale_un_tour(const t_mat_int_dyn *mat_votes,
   // Enregistrer le vainqueur dans la structure de résultat
   if (vainqueur_index != -1) {
     resultat.vainqueur = strdup(resultat.candidats[vainqueur_index]);
-    resultat.score =
-        (max_score * 100) /
-        resultat.nb_votants; // Ajouté : calcul du score en pourcentage
+    resultat.score = (max_score * 100) / resultat.nb_votants; // Ajouté : calcul du score en pourcentage
   }
 
   free(scores);
@@ -166,25 +153,34 @@ void afficher_resultat_uninominale(int tour, t_resultat_uninominale resultat) {
          resultat.score);
 }
 
-int main() {
+int methodeUninominales() {
   // Exemple de matrice de votes (à adapter selon vos besoins)
   int votes[3][3] = {{5, 3, 2}, {2, 5, 3}, {3, 2, 5}};
 
   // Initialisation de la matrice dynamique
-  t_mat_int_dyn mat_votes;
-  mat_votes = init_mat_int_dyn(3, 3);
+  t_mat_int_dyn mat_votes = init_mat_int_dyn(3, 3);
   for (int i = 0; i < 3; ++i) {
     for (int j = 0; j < 3; ++j) {
       mat_votes.data[i][j] = votes[i][j];
     }
   }
 
-  // Test de la méthode uninominale à un tour
+  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  printf("============================================================\n");
+  printf("======================\033[1;31mUNINOMINALE 1 TOUR\033[1;33m====================\n");
+  printf("============================================================\n");
+  printf("============================================================\n\n\033[0m");
+
   t_resultat_uninominale resultat_un_tour = uninominale_un_tour(&mat_votes, 3);
   afficher_resultat_uninominale(1, resultat_un_tour);
   free_resultat_uninominale(&resultat_un_tour);
 
-  // Test de la méthode uninominale à deux tours
+  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  printf("============================================================\n");
+  printf("======================\033[1;31mUNINOMINALE 2 TOUR\033[1;33m====================\n");
+  printf("============================================================\n");
+  printf("============================================================\n\n\033[0m");
+
   t_resultat_uninominale resultat_deux_tours =
       uninominale_deux_tours(&mat_votes, 3);
   afficher_resultat_uninominale(2, resultat_deux_tours);
