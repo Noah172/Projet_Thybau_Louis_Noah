@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "uninominale.h"
+#include "modules/lecture_csv.h"
 
 
 
@@ -154,40 +155,35 @@ void afficher_resultat_uninominale(int tour, t_resultat_uninominale resultat) {
 }
 
 int methodeUninominales() {
-  // Exemple de matrice de votes (à adapter selon vos besoins)
-  int votes[3][3] = {{5, 3, 2}, {2, 5, 3}, {3, 2, 5}};
+    char *nom_fichier = "fich_tests/calcul1.csv";
+    t_mat_char_star_dyn mat_votes = lire_fichier_csv(nom_fichier);
 
-  // Initialisation de la matrice dynamique
-  t_mat_int_dyn mat_votes = init_mat_int_dyn(3, 3);
-  for (int i = 0; i < 3; ++i) {
-    for (int j = 0; j < 3; ++j) {
-      mat_votes.data[i][j] = votes[i][j];
-    }
-  }
+    afficherMatrice(&mat_votes);
 
-  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
-  printf("============================================================\n");
-  printf("======================\033[1;31mUNINOMINALE 1 TOUR\033[1;33m====================\n");
-  printf("============================================================\n");
-  printf("============================================================\n\n\033[0m");
-
-  t_resultat_uninominale resultat_un_tour = uninominale_un_tour(&mat_votes, 3);
-  afficher_resultat_uninominale(1, resultat_un_tour);
-  free_resultat_uninominale(&resultat_un_tour);
-
-  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
-  printf("============================================================\n");
-  printf("======================\033[1;31mUNINOMINALE 2 TOUR\033[1;33m====================\n");
-  printf("============================================================\n");
-  printf("============================================================\n\n\033[0m");
-
-  t_resultat_uninominale resultat_deux_tours =
-      uninominale_deux_tours(&mat_votes, 3);
-  afficher_resultat_uninominale(2, resultat_deux_tours);
-  free_resultat_uninominale(&resultat_deux_tours);
-
-  // Libération de la mémoire
-  free_mat_int_dyn(&mat_votes);
+  //
+  // printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  // printf("============================================================\n");
+  // printf("======================\033[1;31mUNINOMINALE 1 TOUR\033[1;33m====================\n");
+  // printf("============================================================\n");
+  // printf("============================================================\n\n\033[0m");
+  //
+  // t_resultat_uninominale resultat_un_tour = uninominale_un_tour(&mat_votes, 3);
+  // afficher_resultat_uninominale(1, resultat_un_tour);
+  // free_resultat_uninominale(&resultat_un_tour);
+  //
+  // printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  // printf("============================================================\n");
+  // printf("======================\033[1;31mUNINOMINALE 2 TOUR\033[1;33m====================\n");
+  // printf("============================================================\n");
+  // printf("============================================================\n\n\033[0m");
+  //
+  // t_resultat_uninominale resultat_deux_tours =
+  //     uninominale_deux_tours(&mat_votes, 3);
+  // afficher_resultat_uninominale(2, resultat_deux_tours);
+  // free_resultat_uninominale(&resultat_deux_tours);
+  //
+  // // Libération de la mémoire
+  // free_mat_int_dyn(&mat_votes);
 
   return 0;
 }
