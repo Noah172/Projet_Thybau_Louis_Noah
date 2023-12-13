@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -std=c99
 LDFLAGS = -lm
 
 # Listez vos fichiers source ici
-SOURCES = main.c uninominale.c condorcet.c
+SOURCES = main.c uninominale.c condorcet.c condorcet_minimax.c
 
 # Remplacez 'executable' par le nom que vous souhaitez pour votre exécutable
 EXECUTABLE = Executable

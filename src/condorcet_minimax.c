@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "condorcet_minimax.h"
 
 int taille_matrice;
-
 int minimax(int votes[taille_matrice][taille_matrice]) {
   int *resultats = malloc(sizeof(int) * taille_matrice);
 
@@ -26,23 +26,23 @@ int minimax(int votes[taille_matrice][taille_matrice]) {
         max =i;
     }
   }
-  
+
   //verifier s'il y a des égalité
   int egalite = 0;
   for(int i = 0; i < taille_matrice; i++) {
-    if(resultats[i] == resultats[max] && i != max) 
+    if(resultats[i] == resultats[max] && i != max)
         egalite = 1;
   }
 
   free(resultats);
-  
+
   if(egalite)
     return -1;
-  
+
   return max;
 }
 
-int condorcet(int votes[taille_matrice][taille_matrice]) {
+int condorcet_minimax(int votes[taille_matrice][taille_matrice]) {
   //chercher le max de chaque ligne
   int max[2] = {0, 0};
   for (int i = 0; i < taille_matrice; i++) {
@@ -62,7 +62,7 @@ int condorcet(int votes[taille_matrice][taille_matrice]) {
         c++;
       }
     }
-  }  
+  }
 
   //si c vaut 0, alors il n'y a pas d'égalité et on a un vainqueur
   if (c == 0){
@@ -76,17 +76,23 @@ int condorcet(int votes[taille_matrice][taille_matrice]) {
 
 
 
-int main() {
+int methodeCondorcetMinimax() {
+        printf("\n\n\033[1;34m============================================================\n");
+    printf("============================================================\n");
+    printf("=====================\033[1;31mCONDORCET MINIMAX\033[1;34m======================\n");
+    printf("============================================================\n");
+    printf("============================================================\n\n\033[0m");
+
   char liste_candidat[3] = {'A', 'B', 'C'};
   //int votes[3][3] = {{0, 25, 23}, {35, 0, 19}, {37, 41, 0}};
   int votes[3][3] = {{0, 2, 1}, {1, 0, 2}, {2, 1, 0}};
 
   taille_matrice = sizeof(votes[0]) / sizeof(votes[0][0]);
 
-  int vainqueur = condorcet(votes);
+  int vainqueur = condorcet_minimax(votes);
 
   if(vainqueur == -1)
-    printf("Il n'y a pas de vainqueur par la méthode Condorcet et      Minimax\n");
+    printf("Il n'y a pas de vainqueur par la méthode Condorcet et Minimax\n");
   else
     printf("Le vainqueur par la méthode de condorcet est est le candidat %c\n", liste_candidat[vainqueur]);
 
