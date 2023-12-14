@@ -71,3 +71,12 @@ void afficherMatrice(t_mat_int_dyn *matrice) {
         printf("\n");
     }
 }
+
+void afficherMatriceInt(t_mat_int_dyn *matrice) {
+  for (int i = 0; i < matrice->rows; i++) {
+    for (int j = 0; j < matrice->cols; j++) {
+      printf("%d\t", matrice->data[i][j]);
+    }
+    printf("\n");
+  }
+}
