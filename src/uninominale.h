@@ -1,11 +1,7 @@
 #ifndef UNINOMINALE_H
 #define UNINOMINALE_H
 
-typedef struct {
-  int **data;
-  int rows;
-  int cols;
-} t_mat_int_dyn;
+#include "modules/lecture_csv.h"
 
 typedef struct {
   char **candidats;

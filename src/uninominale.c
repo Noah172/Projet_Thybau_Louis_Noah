@@ -101,7 +101,6 @@ t_resultat_uninominale uninominale_deux_tours(const t_mat_int_dyn *mat_votes,
         scores_premier_tour[i]; // Ajouté : mise à jour du nombre de votants
   }
 
-  // Trouver les deux candidats avec les scores les plus élevés
   int max_score1 = -1;
   int max_score2 = -1;
   int index_candidat1 = -1;
@@ -132,7 +131,6 @@ t_resultat_uninominale uninominale_deux_tours(const t_mat_int_dyn *mat_votes,
     }
   }
 
-  // Déterminer le vainqueur du second tour
   if (score_candidat1 > score_candidat2) {
     resultat.vainqueur = strdup(resultat.candidats[index_candidat1]);
   } else {
@@ -155,35 +153,35 @@ void afficher_resultat_uninominale(int tour, t_resultat_uninominale resultat) {
 }
 
 int methodeUninominales() {
-    char *nom_fichier = "fich_tests/calcul1.csv";
-    t_mat_char_star_dyn mat_votes = lire_fichier_csv(nom_fichier);
+    char *nom_fichier = "fich_tests/vote100.csv";
+    t_mat_int_dyn mat_votes = lire_fichier_csv(nom_fichier);
 
     afficherMatrice(&mat_votes);
 
-  //
-  // printf("\n\n\033[1;34m\033[1;33m============================================================\n");
-  // printf("============================================================\n");
-  // printf("======================\033[1;31mUNINOMINALE 1 TOUR\033[1;33m====================\n");
-  // printf("============================================================\n");
-  // printf("============================================================\n\n\033[0m");
-  //
-  // t_resultat_uninominale resultat_un_tour = uninominale_un_tour(&mat_votes, 3);
-  // afficher_resultat_uninominale(1, resultat_un_tour);
-  // free_resultat_uninominale(&resultat_un_tour);
-  //
-  // printf("\n\n\033[1;34m\033[1;33m============================================================\n");
-  // printf("============================================================\n");
-  // printf("======================\033[1;31mUNINOMINALE 2 TOUR\033[1;33m====================\n");
-  // printf("============================================================\n");
-  // printf("============================================================\n\n\033[0m");
-  //
-  // t_resultat_uninominale resultat_deux_tours =
-  //     uninominale_deux_tours(&mat_votes, 3);
-  // afficher_resultat_uninominale(2, resultat_deux_tours);
-  // free_resultat_uninominale(&resultat_deux_tours);
-  //
-  // // Libération de la mémoire
-  // free_mat_int_dyn(&mat_votes);
+
+  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  printf("============================================================\n");
+  printf("======================\033[1;31mUNINOMINALE 1 TOUR\033[1;33m====================\n");
+  printf("============================================================\n");
+  printf("============================================================\n\n\033[0m");
+
+  t_resultat_uninominale resultat_un_tour = uninominale_un_tour(&mat_votes, 3);
+  afficher_resultat_uninominale(1, resultat_un_tour);
+  free_resultat_uninominale(&resultat_un_tour);
+
+  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  printf("============================================================\n");
+  printf("======================\033[1;31mUNINOMINALE 2 TOUR\033[1;33m====================\n");
+  printf("============================================================\n");
+  printf("============================================================\n\n\033[0m");
+
+  t_resultat_uninominale resultat_deux_tours =
+      uninominale_deux_tours(&mat_votes, 3);
+  afficher_resultat_uninominale(2, resultat_deux_tours);
+  free_resultat_uninominale(&resultat_deux_tours);
+
+  // Libération de la mémoire
+  free_mat_int_dyn(&mat_votes);
 
   return 0;
 }
