@@ -5,6 +5,7 @@
 #include <string.h>
 #include "uninominale.h"
 #include "modules/lecture_csv.h"
+#include "modules/lecture_csv_format2.h"
 
 
 
@@ -31,9 +32,7 @@ t_resultat_uninominale init_resultat_uninominale(int nb_candidats) {
   resultat.candidats = (char **)malloc(nb_candidats * sizeof(char *));
   for (int i = 0; i < nb_candidats; ++i) {
     // Allouer de la mémoire pour le nom du candidat
-    resultat.candidats[i] = (char *)malloc(
-        100 * sizeof(char)); // Ajustez la taille selon vos besoins
-    // Initialiser les noms des candidats si nécessaire
+    resultat.candidats[i] = (char *)malloc(100 * sizeof(char));
     strcpy(resultat.candidats[i], ""); // Chaîne vide par défaut
   }
   resultat.nb_candidats = nb_candidats;
@@ -153,35 +152,40 @@ void afficher_resultat_uninominale(int tour, t_resultat_uninominale resultat) {
 }
 
 int methodeUninominales() {
-    char *nom_fichier = "fich_tests/vote100.csv";
-    t_mat_int_dyn mat_votes = lire_fichier_csv(nom_fichier);
+    const char *nom_fichier = "fich_tests/vote10.csv";
+    t_vote_format2_data data = lire_fichier_csv_format2(nom_fichier);
 
-    afficherMatrice(&mat_votes);
-
-
-  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
-  printf("============================================================\n");
-  printf("======================\033[1;31mUNINOMINALE 1 TOUR\033[1;33m====================\n");
-  printf("============================================================\n");
-  printf("============================================================\n\n\033[0m");
-
-  t_resultat_uninominale resultat_un_tour = uninominale_un_tour(&mat_votes, 3);
-  afficher_resultat_uninominale(1, resultat_un_tour);
-  free_resultat_uninominale(&resultat_un_tour);
-
-  printf("\n\n\033[1;34m\033[1;33m============================================================\n");
-  printf("============================================================\n");
-  printf("======================\033[1;31mUNINOMINALE 2 TOUR\033[1;33m====================\n");
-  printf("============================================================\n");
-  printf("============================================================\n\n\033[0m");
-
-  t_resultat_uninominale resultat_deux_tours =
-      uninominale_deux_tours(&mat_votes, 3);
-  afficher_resultat_uninominale(2, resultat_deux_tours);
-  free_resultat_uninominale(&resultat_deux_tours);
-
-  // Libération de la mémoire
-  free_mat_int_dyn(&mat_votes);
+    // Afficher les informations de la structure
+    afficher_vote_format2_data(data);
+  //   char *nom_fichier = "fich_tests/calcul1.csv";
+  //   t_mat_int_dyn mat_votes = lire_fichier_csv(nom_fichier);
+  //
+  //   afficherMatrice(&mat_votes);
+  //
+  //
+  // printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  // printf("============================================================\n");
+  // printf("======================\033[1;31mUNINOMINALE 1 TOUR\033[1;33m====================\n");
+  // printf("============================================================\n");
+  // printf("============================================================\n\n\033[0m");
+  //
+  // t_resultat_uninominale resultat_un_tour = uninominale_un_tour(&mat_votes, 3);
+  // afficher_resultat_uninominale(1, resultat_un_tour);
+  // free_resultat_uninominale(&resultat_un_tour);
+  //
+  // printf("\n\n\033[1;34m\033[1;33m============================================================\n");
+  // printf("============================================================\n");
+  // printf("======================\033[1;31mUNINOMINALE 2 TOUR\033[1;33m====================\n");
+  // printf("============================================================\n");
+  // printf("============================================================\n\n\033[0m");
+  //
+  // t_resultat_uninominale resultat_deux_tours =
+  //     uninominale_deux_tours(&mat_votes, 3);
+  // afficher_resultat_uninominale(2, resultat_deux_tours);
+  // free_resultat_uninominale(&resultat_deux_tours);
+  //
+  // // Libération de la mémoire
+  // free_mat_int_dyn(&mat_votes);
 
   return 0;
 }
