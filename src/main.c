@@ -1,5 +1,6 @@
 #include "condorcet_minimax.h"
 #include "modules/lecture_csv.h"
+#include "modules/csv_votes.h"
 #include "uninominale.h"
 #include "jugement_majoritaire.h"
 #include <getopt.h>
@@ -100,24 +101,21 @@ int main(int argc, char *argv[]) {
   strcat(nom_fichier, argv[1]);
 
   lire_balise(argc, argv);
-  t_mat_char_star_dyn mat_votes;
-  mat_votes = lire_fichier_csv(nom_fichier);
-  afficherMatrice(&mat_votes);
-
-  t_mat_int_dyn matrice_duel = creation_matrice_int_depuis_char(&mat_votes);
 
   if (i) {
-    // creer matrice duel à partir du fichier csv
+      t_votes *mat_votes = lireVotesDepuisCSV(nom_fichier);
+      afficherVotes(mat_votes);
+      // t_mat_int_dyn matrice_duel = creation_matrice_int_depuis_char(&mat_votes);
+
   }
 
   if (d) {
   }
 
   // methodeUninominales();
-  methodeCondorcetMinimax(matrice_duel, mat_votes.data[0]);
-  jugementMajoritaire();
+  // methodeCondorcetMinimax(matrice_duel, mat_votes.data[0]);
+  // jugementMajoritaire();
 
   free(nom_fichier);
   return 0;
 }
-

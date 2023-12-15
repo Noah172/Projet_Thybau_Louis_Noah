@@ -20,4 +20,18 @@ typedef struct {
   int score;
 } t_resultat_uninominale;
 
+typedef struct{
+    int id;
+    int *vote;
+}t_votants;
+
+typedef struct {
+  t_votants **votants;
+  int nb_candidats;
+  int nb_votants;
+  char **candidats;
+} t_votes;
+
+
+
 #endif // TYPES_H
