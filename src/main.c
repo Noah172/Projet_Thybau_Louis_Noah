@@ -1,6 +1,7 @@
 #include "condorcet_minimax.h"
 #include "modules/lecture_csv.h"
 #include "uninominale.h"
+#include "jugement_majoritaire.h"
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
