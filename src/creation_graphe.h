@@ -6,4 +6,6 @@ t_graph creer_graphe(t_mat_int_dyn matrice, char **liste_candidat);
 
 void afficherGraphe(t_graph graphe);
 
+void confirmerGraphe(t_graph *graphe);
+
 #endif
