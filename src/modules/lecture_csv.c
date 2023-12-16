@@ -39,6 +39,14 @@ t_mat_char_star_dyn lire_fichier_csv(const char *nom_fichier) {
       int colonne = 0;
       char *token = strtok(buffer, ",");
       while (token) {
+
+        size_t len = strlen(token);
+        for (size_t i = 0; i < len; i++) {
+          if (token[i] == '\n') {
+            token[i] = '\0'; // Remplacer le '\n' par '\0'
+          }
+        }
+
         matrice[i][colonne] = strdup(token);
         colonne++;
         token = strtok(NULL, ",");
