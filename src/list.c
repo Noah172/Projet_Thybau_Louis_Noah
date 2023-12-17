@@ -65,6 +65,30 @@ char *get_char(DynamicList *list, int index) {
   return current->data_str;
 }
 
+void set_int(DynamicList *list, int index, int newData) {
+  if (index >= list->size) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  current->data_int = newData;
+}
+
+void set_char(DynamicList *list, int index, char *newData) {
+  if (index >= list->size) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  current->data_str = newData;
+}
+
 void removeByIndex(DynamicList *list, int index) {
   if (index >= list->size) {
     fprintf(stderr, "Indice hors de la plage de la liste.\n");
@@ -206,6 +230,31 @@ char *gett_char(CircularList *list, int index) {
   }
   return current->data_str;
 }
+
+void sett_int(CircularList *list, int index, int newData) {
+  if (index >= list->nb_elem) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  current->data_int = newData;
+}
+
+void sett_char(CircularList *list, int index, char *newData) {
+  if (index >= list->nb_elem) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  current->data_str = newData;
+}
+
 // Fonction pour supprimer l'élément en tête de la liste
 void removeHead(CircularList *list) {
   if (list->head != NULL) {
