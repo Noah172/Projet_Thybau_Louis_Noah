@@ -13,15 +13,20 @@ void initDynamicList(DynamicList *list) {
   list->size = 0;
 }
 
-void add(DynamicList *list, int data) {
+void add(DynamicList *list, void *data, DataType type) {
   Node *newNode = malloc(sizeof(Node));
   if (newNode == NULL) {
     fprintf(stderr, "Erreur d'allocation mémoire.\n");
     exit(EXIT_FAILURE);
   }
 
-  newNode->data = data;
+  if (type == INT_TYPE) {
+
+    newNode->data_int = *(int *)data;
+  } else
+    newNode->data_str = (char *)data;
   newNode->next = NULL;
+  newNode->type = type;
 
   if (list->head == NULL) {
     list->head = newNode;
@@ -34,6 +39,30 @@ void add(DynamicList *list, int data) {
   }
 
   list->size++;
+}
+
+int get_int(DynamicList *list, int index) {
+  if (index >= list->size) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  return current->data_int;
+}
+
+char *get_char(DynamicList *list, int index) {
+  if (index >= list->size) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  return current->data_str;
 }
 
 void removeByIndex(DynamicList *list, int index) {
@@ -63,7 +92,10 @@ void removeByIndex(DynamicList *list, int index) {
 void printDynamicList(DynamicList *list) {
   Node *current = list->head;
   while (current != NULL) {
-    printf("%d ", current->data);
+    if (current->type == INT_TYPE)
+      printf("%d ", current->data_int);
+    else
+      printf("%s ", current->data_str);
     current = current->next;
   }
   printf("\n");
@@ -96,14 +128,18 @@ void initList(CircularList *list) {
 }
 
 // Fonction pour ajouter un élément en tête de la liste
-void addHead(CircularList *list, int data) {
+void addHead(CircularList *list, void *data, DataType type) {
   Node *newNode = malloc(sizeof(Node));
   if (newNode == NULL) {
     fprintf(stderr, "Erreur d'allocation mémoire.\n");
     exit(EXIT_FAILURE);
   }
 
-  newNode->data = data;
+  if (type == INT_TYPE)
+    newNode->data_int = *(int *)data;
+  else
+    newNode->data_str = (char *)data;
+  newNode->type = type;
   newNode->next = list->head;
 
   if (list->head == NULL) {
@@ -119,14 +155,18 @@ void addHead(CircularList *list, int data) {
 }
 
 // Fonction pour ajouter un élément en queue de la liste
-void addTail(CircularList *list, int data) {
+void addTail(CircularList *list, void *data, DataType type) {
   Node *newNode = malloc(sizeof(Node));
   if (newNode == NULL) {
     fprintf(stderr, "Erreur d'allocation mémoire.\n");
     exit(EXIT_FAILURE);
   }
 
-  newNode->data = data;
+  if (type == INT_TYPE)
+    newNode->data_int = *(int *)data;
+  else
+    newNode->data_str = (char *)data;
+  newNode->type = type;
   newNode->next = NULL;
 
   if (list->head == NULL) {
@@ -143,6 +183,29 @@ void addTail(CircularList *list, int data) {
   list->nb_elem++;
 }
 
+int gett_int(CircularList *list, int index) {
+  if (index >= list->nb_elem) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  return current->data_int;
+}
+
+char *gett_char(CircularList *list, int index) {
+  if (index >= list->nb_elem) {
+    fprintf(stderr, "Indice hors de la plage de la liste.\n");
+    exit(EXIT_FAILURE);
+  }
+  Node *current = list->head;
+  for (int i = 0; i < index - 1; ++i) {
+    current = current->next;
+  }
+  return current->data_str;
+}
 // Fonction pour supprimer l'élément en tête de la liste
 void removeHead(CircularList *list) {
   if (list->head != NULL) {
@@ -195,7 +258,10 @@ void printList(CircularList *list) {
   Node *current = list->head;
 
   for (int i = 0; i < list->nb_elem; i++) {
-    printf("%d ", current->data);
+    if (current->type == INT_TYPE)
+      printf("%d ", current->data_int);
+    else
+      printf("%s ", current->data_str);
     current = current->next;
   }
   printf("\n");
