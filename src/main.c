@@ -1,14 +1,17 @@
 #include "condorcet_minimax.h"
-#include "modules/lecture_csv.h"
-#include "modules/csv_votes.h"
-#include "uninominale.h"
+#include "creation_graphe.h"
 #include "jugement_majoritaire.h"
+#include "list.h"
+#include "modules/csv_votes.h"
+#include "modules/lecture_csv.h"
+#include "uninominale.h"
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-t_mat_int_dyn creation_matrice_int_depuis_char(t_mat_char_star_dyn *matrice_char) {
+t_mat_int_dyn
+creation_matrice_int_depuis_char(t_mat_char_star_dyn *matrice_char) {
   t_mat_int_dyn matrice_duel;
   matrice_duel.cols = matrice_char->cols;
   matrice_duel.rows = matrice_char->rows - 1;
@@ -86,6 +89,7 @@ void lire_balise(int argc, char *argv[]) {
   }
 }
 
+
 int main(int argc, char *argv[]) {
 
   if (argc < 3) {
@@ -103,17 +107,39 @@ int main(int argc, char *argv[]) {
   lire_balise(argc, argv);
 
   if (i) {
-      t_votes *mat_votes = lireVotesDepuisCSV(nom_fichier);
-      afficherVotes(mat_votes);
-      // t_mat_int_dyn matrice_duel = creation_matrice_int_depuis_char(&mat_votes);
-
+    t_votes *mat_votes = lireVotesDepuisCSV(nom_fichier);
+    afficherVotes(mat_votes);
+    // creation des matrices char et int depuis le t_votes
   }
 
   if (d) {
+    t_mat_char_star_dyn mat_votes;
+    mat_votes = lire_fichier_csv(nom_fichier);
+    afficherMatrice(&mat_votes);
+    DynamicList liste_candidat;
+    initDynamicList(&liste_candidat);
+
+    for(int i = 0; i < mat_votes.cols; i++){
+      add(&liste_candidat, mat_votes.data[0][i], CHAR_TYPE);
+    }
+    
+    //char **liste_candidat = mat_votes.data[0];
+    
+    t_mat_int_dyn mat_duel = creation_matrice_int_depuis_char(&mat_votes);
+
+    methodeCondorcetMinimax(mat_duel, liste_candidat);
+    
+    /*t_graph graphe = creer_graphe(mat_duel, liste_candidat);
+
+    confirmerGraphe(&graphe);
+
+    afficherGraphe(graphe);*/
   }
+  
+
+  return 0;
 
   // methodeUninominales();
-  // methodeCondorcetMinimax(matrice_duel, mat_votes.data[0]);
   // jugementMajoritaire();
 
   free(nom_fichier);
