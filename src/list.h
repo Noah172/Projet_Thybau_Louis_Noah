@@ -16,6 +16,10 @@ int get_int(DynamicList *list, int index);
 
 char *get_char(DynamicList *list, int index);
 
+void set_int(DynamicList *list, int index, int newData);
+
+void set_char(DynamicList *list, int index, char *newData);
+
 void removeByIndex(DynamicList *list, int index);
 
 void printDynamicList(DynamicList *list);
@@ -37,6 +41,10 @@ void addTail(CircularList *list, void *data, DataType type);
 int gett_int(CircularList *list, int index);
 
 char *gett_char(CircularList *list, int index);
+
+void sett_int(CircularList *list, int index, int newData);
+
+void sett_char(CircularList *list, int index, char *newData);
 
 void removeHead(CircularList *list);
 
