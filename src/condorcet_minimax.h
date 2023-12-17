@@ -6,6 +6,6 @@ extern int taille_matrice;
 
 int minimax(t_mat_int_dyn matrice);
 int condorcet_minimax(t_mat_int_dyn matrice);
-int methodeCondorcetMinimax(t_mat_int_dyn matrice, char **liste_candidat);
+int methodeCondorcetMinimax(t_mat_int_dyn matrice, DynamicList liste_candidat);
 
 #endif /* CONDORCET_H */
