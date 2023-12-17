@@ -67,7 +67,6 @@ t_graph creer_graphe(t_mat_int_dyn matrice, char **liste_candidat) {
           source - destination > 0/) {
         t_arc arc;
         arc.source = liste_candidat[i];
-        arc.confirme = 1;
         arc.destination = liste_candidat[j];
         arc.poids = source - destination;
         
@@ -84,8 +83,7 @@ t_graph creer_graphe(t_mat_int_dyn matrice, char **liste_candidat) {
 
 void afficherGraphe(t_graph graphe) {
   for (int i = 0; i < graphe.count; i++) {
-    printf("Arc (%s, %s, %d) confirmé : %d\n", graphe.arcs[i].source,
-           graphe.arcs[i].destination, graphe.arcs[i].poids,
-           graphe.arcs[i].confirme);
+    printf("Arc (%s, %s, %d)\n", graphe.arcs[i].source,
+           graphe.arcs[i].destination, graphe.arcs[i].poids);
   }
 }
