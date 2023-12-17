@@ -47,7 +47,7 @@ int get_int(DynamicList *list, int index) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   return current->data_int;
@@ -59,7 +59,7 @@ char *get_char(DynamicList *list, int index) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   return current->data_str;
@@ -71,7 +71,7 @@ void set_int(DynamicList *list, int index, int newData) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   current->data_int = newData;
@@ -83,7 +83,7 @@ void set_char(DynamicList *list, int index, char *newData) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   current->data_str = newData;
@@ -213,7 +213,7 @@ int gett_int(CircularList *list, int index) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   return current->data_int;
@@ -225,7 +225,7 @@ char *gett_char(CircularList *list, int index) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   return current->data_str;
@@ -237,7 +237,7 @@ void sett_int(CircularList *list, int index, int newData) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   current->data_int = newData;
@@ -249,7 +249,7 @@ void sett_char(CircularList *list, int index, char *newData) {
     exit(EXIT_FAILURE);
   }
   Node *current = list->head;
-  for (int i = 0; i < index - 1; ++i) {
+  for (int i = 0; i < index; ++i) {
     current = current->next;
   }
   current->data_str = newData;
