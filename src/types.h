@@ -33,5 +33,22 @@ typedef struct {
 } t_votes;
 
 
+/*typedef struct t_sommet {
+  char *valeur;
+  struct t_sommet *suivant; // Sommet suivant dans le graphe
+  struct t_sommet *origine; // Sommet d'origine dans le graphe
+} t_sommet;*/
+
+typedef struct {
+  char *source;
+  char *destination;
+  int poids;
+} t_arc;
+
+typedef struct {
+  t_arc *arcs;
+  t_sommet **sommets;
+  int count;
+} t_graph;
 
 #endif // TYPES_H
