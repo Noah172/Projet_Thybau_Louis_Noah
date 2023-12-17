@@ -4,8 +4,15 @@
 // STRUCTURE DE DONNEE
 
 // Structure d'un élément de la liste
+typedef enum {
+    INT_TYPE,
+    CHAR_TYPE
+} DataType;
+
 typedef struct Node {
-  int data;
+  int data_int;
+  char* data_str;
+  DataType type;
   struct Node *next;
 } Node;
 
