@@ -59,6 +59,14 @@ typedef struct {
   char **candidats;
 } t_votes;
 
+typedef struct {
+    char **candidats;
+    int *notes;
+    int *medianes;
+    int nb_candidats;
+    int nb_votants;
+} t_resultat_majoritaire;
+
 // GRAPHE
 
 typedef struct t_sommet {
