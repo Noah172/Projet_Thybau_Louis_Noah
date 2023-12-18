@@ -18,7 +18,7 @@ creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
   for (int i = 4; i < mat_votes->cols; i++) {
     add(&liste_candidat, mat_votes->data[0][i], CHAR_TYPE);
   }
-  
+
   // creer matrce de duel
   t_mat_int_dyn matrice_duel;
   matrice_duel.cols = mat_votes->cols - 4;
@@ -32,12 +32,12 @@ creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
 
   int nb_candidats = mat_votes->cols - 4;
   int nb_votants = mat_votes->rows;
-  
+
   for (int i = 0; i < nb_candidats; i++) {
     matrice_duel.data[i] = (int *)malloc(nb_candidats * sizeof(int));
     memset(matrice_duel.data[i], 0, nb_candidats * sizeof(int));
   }
-  
+
   for (int i = 1; i < nb_votants; i++) {
     for (int j = 0; j < nb_candidats; j++) {
       for (int k = j; k < nb_candidats; k++) {
@@ -154,13 +154,13 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
   char *rep_fichier = "fich_tests/";
-  
+
   char *nom_fichier =
       malloc(sizeof(char) * strlen(rep_fichier) +
      sizeof(char) * strlen(argv[1]));
   strcpy(nom_fichier, rep_fichier);
   strcat(nom_fichier, argv[1]);
-  
+
   lire_balise(argc, argv);
 
   t_mat_char_star_dyn mat_votes = lire_fichier_csv(nom_fichier);
@@ -205,114 +205,41 @@ int main(int argc, char *argv[]) {
       }
     }
   }
-
-  char *vainqueur_condor_minimax = NULL;
-  char *vainqueur_condor_paires = NULL;
-  char *vainqueur_condor__schulze = NULL;
-
-  char *vainqueur_uni1 = NULL;
-  ;
-  char *vainqueur_uni2 = NULL;
-  ;
-  char *vainqueur_jm = NULL;
-  ;
-
   if (m) {
     for (int i = 0; i < param_m.size; i++) {
       if (strcmp(get_char(&param_m, i), "uni1") == 0) {
-        // vainqueur_uni1 = methodeUninominales(..., fichier);
+        printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mUNINOMINAL 1 TOUR\033[1;34m======================\n============================================================\n\n\033[0m\n");
+        uninominale_un_tour(&mat_votes,fichier);
       } else if (strcmp(get_char(&param_m, i), "uni2") == 0) {
-        // vainqueur_uni2 = methodeUninominales(..., fichier);
+          printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mUNINOMINAL 2 TOUR\033[1;34m======================\n============================================================\n\n\033[0m\n");
+          uninominale_deux_tours(&mat_votes,fichier);
       } else if (strcmp(get_char(&param_m, i), "cm") == 0) {
-        vainqueur_condor_minimax =
-            methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+          printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET MINIMAX\033[1;34m======================\n============================================================\n\n\033[0m\n");
+        methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
       } else if (strcmp(get_char(&param_m, i), "cp") == 0) {
-        vainqueur_condor_paires = "NULL";
+        // vainqueur_condor_paires = "NULL";
       } else if (strcmp(get_char(&param_m, i), "cs") == 0) {
-        vainqueur_condor__schulze = "NULL";
+        // vainqueur_condor__schulze = "NULL";
       } else if (strcmp(get_char(&param_m, i), "jm") == 0) {
-        // vainqueur_jm = jugementMajoritaire(..., fichier);
+        printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mJUGEMENT MAJORITAIRE\033[1;34m===================\n============================================================\n\n\033[0m\n");
+        jugementMajoritaire(mat_votes,fichier);
       } else if (strcmp(get_char(&param_m, i), "all") == 0) {
-        // vainqueur_uni1 = methodeUninominales(..., fichier);
         // vainqueur_uni2 = methodeUninominales(..., fichier);
-        vainqueur_condor_minimax =
-            methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
-        vainqueur_condor_paires = "NULL";
-        vainqueur_condor__schulze = "NULL";
-        // vainqueur_jm = jugementMajoritaire(..., fichier);
+        printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mUNINOMINAL 1 TOUR\033[1;34m======================\n============================================================\n\n\033[0m\n");
+        uninominale_un_tour(&mat_votes,fichier);
+
+        printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mUNINOMINAL 2 TOUR\033[1;34m======================\n============================================================\n\n\033[0m\n");
+        uninominale_deux_tours(&mat_votes,fichier);
+
+        printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET MINIMAX\033[1;34m======================\n============================================================\n\n\033[0m\n");
+        methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+
+        printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mJUGEMENT MAJORITAIRE\033[1;34m===================\n============================================================\n\n\033[0m");
+        jugementMajoritaire(mat_votes,fichier);
+
+        // printf("\n\n\033[1;34m===========================================================\n=====================\033[1;31mCONDORCET SCHULZE\033[1;34m======================\n============================================================\n\n\033[0m\n%s");
       }
     }
-  }
-
-  if (vainqueur_condor_minimax != NULL) {
-    printf("\n\n\033[1;34m====================================================="
-           "======\n");
-    printf("=====================\033[1;31mCONDORCET "
-           "MINIMAX\033[1;34m======================\n");
-    printf("============================================================"
-           "\n\n\033[0m");
-
-    if (strcmp(vainqueur_condor_minimax, "NULL") == 0) {
-      printf("Il n'y a pas de vainqueur par la méthode de Condorcet Minimax\n");
-    } else {
-      printf("Le vainqueur par la méthode de Condorcet Minimax est %s\n",
-             vainqueur_condor_minimax);
-    }
-  }
-
-  if (vainqueur_condor_paires != NULL) {
-    printf("\n\n\033[1;34m====================================================="
-           "======\n");
-    printf("=====================\033[1;31mCONDORCET "
-           "PAIRES\033[1;34m======================\n");
-    printf("============================================================"
-           "\n\n\033[0m");
-
-    printf("MÉTHODE PAS IMPLÉMENTÉ\n");
-  }
-
-  if (vainqueur_condor__schulze != NULL) {
-    printf("\n\n\033[1;34m====================================================="
-           "======\n");
-    printf("=====================\033[1;31mCONDORCET "
-           "SCHULZE\033[1;34m======================\n");
-    printf("============================================================"
-           "\n\n\033[0m");
-
-    printf("MÉTHODE PAS IMPLÉMENTÉ\n");
-  }
-
-  if (vainqueur_uni1 != NULL) {
-    printf("\n\n\033[1;34m====================================================="
-           "======\n");
-    printf("=====================\033[1;31mUNINOMINAL 1 "
-           "TOUR\033[1;34m======================\n");
-    printf("============================================================"
-           "\n\n\033[0m");
-
-    /*TRAITEMENT AFFICHAGE*/
-  }
-
-  if (vainqueur_uni2 != NULL) {
-    printf("\n\n\033[1;34m====================================================="
-           "======\n");
-    printf("=====================\033[1;31mUNINOMINAL 2 "
-           "TOURS\033[1;34m======================\n");
-    printf("============================================================"
-           "\n\n\033[0m");
-
-    /*TRAITEMENT AFFICHAGE*/
-  }
-
-  if (vainqueur_jm != NULL) {
-    printf("\n\n\033[1;34m====================================================="
-           "======\n");
-    printf("=====================\033[1;31mJUGEMENT "
-           "MAJORITAIRE\033[1;34m======================\n");
-    printf("============================================================"
-           "\n\n\033[0m");
-
-    /*TRAITEMENT AFFICHAGE*/
   }
 
   free(nom_fichier);
