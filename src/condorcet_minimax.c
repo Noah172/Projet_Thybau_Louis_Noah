@@ -93,7 +93,7 @@ int minimax(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE *fichier) {
  * Minimax s'il y a une égalité.
  */
 int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
-                      FILE *fichier) {
+                      FILE *fichier,int nb_votants) {
 
   /// \brief Initialisation des indices du maximum
 
@@ -138,7 +138,7 @@ int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
   if (c == 0) {
     fprintf(fichier, "[Condorcet] Pas d'égalité trouvée\n");
 
-    fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Condorcet, %d candidats, %d votants, vainqueur =  %s\n\n",matrice.cols ,matrice.data[1][0]+matrice.data[0][1],get_char(&liste_candidat, get_int(&max, 0)) );
+    fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Condorcet, %d candidats, %d votants, vainqueur =  %s\n\n",matrice.cols ,nb_votants,get_char(&liste_candidat, get_int(&max, 0)) );
     return get_int(&max, 0);
   } else {
     fprintf(fichier, "[Condorcet] Égalité trouvée, il n'y a pas de vainqueur, "
@@ -154,14 +154,13 @@ int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
 /// \param matrice Matrice des duels.
 /// \param liste_candidat Liste des candidats.
 /// \return le gagnant de la méthode de Condorcet, ou "NULL" s'il n'y en a pas
-char *methodeCondorcetMinimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
-                              FILE *fichier) {
+char *methodeCondorcetMinimax(t_mat_int_dyn matrice, DynamicList liste_candidat,FILE *fichier,int nb_votants) {
 
   taille_matrice = matrice.cols;
 
   fprintf(fichier, "[Condorcet] Début du calcul\n");
   /// \brief Appel de la fonction pour trouver le vainqueur.
-  int vainqueur = condorcet_minimax(matrice, liste_candidat, fichier);
+  int vainqueur = condorcet_minimax(matrice, liste_candidat, fichier,nb_votants);
 
   /// \brief Retourne le résultat
   if (vainqueur == -1)

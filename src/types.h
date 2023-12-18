@@ -44,7 +44,7 @@ typedef struct {
   int nb_candidats;
   int nb_votants;
   char *vainqueur;
-  int score;
+  float score;
 } t_resultat_uninominale;
 
 typedef struct {

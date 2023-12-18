@@ -75,8 +75,8 @@ char* trouver_vainqueur(t_mat_char_star_dyn *mat_votes) {
  * \warning Assurez-vous que le candidat gagnant passé en paramètre correspond à un candidat présent dans la matrice,
  * sinon les résultats peuvent être imprévisibles.
  */
-int calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
-	int nb_votants = mat_votes->rows - 1;
+float calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
+	float nb_votants = mat_votes->rows - 1;
 	int index_winner = -1;
 	for (int i = 4; i < mat_votes->cols; ++i) {
 		if (strcmp(mat_votes->data[0][i], vainqueur) == 0) {
@@ -84,7 +84,7 @@ int calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
 			break;
 		}
 	}
-	int total_winner_votes = 0;
+	float total_winner_votes = 0;
 	for (int row = 1; row < mat_votes->rows; ++row) {
 		int min_vote = atoi(mat_votes->data[row][4]);
 		int index = 4;
@@ -98,7 +98,7 @@ int calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
 			total_winner_votes += 1;
 		}
 	}
-	int score = (total_winner_votes * 100) / nb_votants;
+	float score = (total_winner_votes * 100) / nb_votants;
 	return score;
 }
 
@@ -128,7 +128,7 @@ char* uninominale_un_tour(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	resultat.vainqueur = strdup(vainqueur);
 	resultat.score = calculer_score(mat_votes, vainqueur);
 	fprintf(fichier, "[Uninominale 1 Tour] Fin du scrutin\n");
-	fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Uninominale 1 tour, %d candidats, %d votants, vainqueur = %s, score = %d pourcents",resultat.nb_candidats,resultat.nb_votants,resultat.vainqueur ,resultat.score);
+	fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Uninominale 1 tour, %d candidats, %d votants, vainqueur = %s, score = %f pourcents",resultat.nb_candidats,resultat.nb_votants,resultat.vainqueur ,resultat.score);
 	return resultat.vainqueur;
 }
 
@@ -141,7 +141,7 @@ char* uninominale_deux_tours(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	uninominale_un_tour(mat_votes,fichierSortie);
 	if (resultat.score>49) {
 		fprintf(fichier, "[Uninominale 2 Tours] Fin du scrutin (2ème tour) : un candidat a obtenu la majoritée\n");
-		fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Uninominale 2 tour, %d candidats, %d votants, vainqueur = %s, score = %d pourcents",resultat.nb_candidats,resultat.nb_votants,resultat.vainqueur ,resultat.score);
+		fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Uninominale 2 tour, %d candidats, %d votants, vainqueur = %s, score = %f pourcents", resultat.nb_candidats, resultat.nb_votants, resultat.vainqueur, resultat.score);
 		return resultat.vainqueur;
 	}
 	int nb_candidats=resultat.nb_candidats;

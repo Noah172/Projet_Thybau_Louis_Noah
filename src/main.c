@@ -167,6 +167,7 @@ int main(int argc, char *argv[]) {
   t_mat_int_dyn matrice_duels;
   DynamicList liste_candidat;
   initDynamicList(&liste_candidat);
+  int nb_votants=mat_votes.rows-1;
 
   if (i) {
 
@@ -215,7 +216,7 @@ int main(int argc, char *argv[]) {
           uninominale_deux_tours(&mat_votes,fichier);
       } else if (strcmp(get_char(&param_m, i), "cm") == 0) {
           printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET MINIMAX\033[1;34m======================\n============================================================\n\n\033[0m\n");
-        methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+        methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier,nb_votants);
       } else if (strcmp(get_char(&param_m, i), "cp") == 0) {
         // vainqueur_condor_paires = "NULL";
       } else if (strcmp(get_char(&param_m, i), "cs") == 0) {
@@ -232,7 +233,7 @@ int main(int argc, char *argv[]) {
         uninominale_deux_tours(&mat_votes,fichier);
 
         printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET MINIMAX\033[1;34m======================\n============================================================\n\n\033[0m\n");
-        methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+        methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier,nb_votants);
 
         printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mJUGEMENT MAJORITAIRE\033[1;34m===================\n============================================================\n\n\033[0m");
         jugementMajoritaire(mat_votes,fichier);
