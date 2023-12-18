@@ -75,7 +75,7 @@ int minimax(t_mat_int_dyn matrice) {
  * \return L'indice du candidat vainqueur par la méthode Condorcet, ou par
  * Minimax s'il y a une égalité.
  */
-int condorcet_minimax(t_mat_int_dyn matrice) {
+int condorcet_minimax(t_mat_int_dyn matrice, FILE* fichier) {
 
   /// \brief Initialisation des indices du maximum
 
@@ -97,8 +97,7 @@ int condorcet_minimax(t_mat_int_dyn matrice) {
     }
   }
 
-  /// \brief Vérifie s'il y a égalité avec le maximum, c étant le compteur
-  /// d'égalité
+  /// \brief Vérifie s'il y a égalité avec le maximum,
   int c = 0;
   for (int i = 1; i < taille_matrice; i++) {
     for (int j = 0; j < taille_matrice; j++) {
@@ -124,28 +123,17 @@ int condorcet_minimax(t_mat_int_dyn matrice) {
 ///
 /// \param matrice Matrice des duels.
 /// \param liste_candidat Liste des candidats.
-/// \return 0 en cas de succès, affiche le vainqueur ou informe qu'il n'y en a
-/// pas.
-int methodeCondorcetMinimax(t_mat_int_dyn matrice, DynamicList liste_candidat) {
-  printf("\n\n\033[1;34m======================================================="
-         "=====\n");
-  printf("============================================================\n");
-  printf("=====================\033[1;31mCONDORCET "
-         "MINIMAX\033[1;34m======================\n");
-  printf("============================================================\n");
-  printf("============================================================\n\n\033["
-         "0m");
-
+/// \return le gagnant de la méthode de Condorcet, ou "NULL" s'il n'y en a pas
+char* methodeCondorcetMinimax(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE* fichier) {
+  
   taille_matrice = matrice.cols;
 
   /// \brief Appel de la fonction pour trouver le vainqueur.
-  int vainqueur = condorcet_minimax(matrice);
+  int vainqueur = condorcet_minimax(matrice, fichier);
 
-  /// \brief Affiche le résultat
+  /// \brief Retourne le résultat
   if (vainqueur == -1)
-    printf("Il n'y a pas de vainqueur par la méthode Condorcet et Minimax\n");
+    return "NULL";
   else
-    printf("Le vainqueur par la méthode de condorcet est est le candidat %s\n",
-           get_char(&liste_candidat, vainqueur));
-  return 0;
+    return get_char(&liste_candidat, vainqueur);
 }
