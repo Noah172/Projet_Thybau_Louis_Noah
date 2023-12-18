@@ -94,7 +94,7 @@ int calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
 			break;
 		}
 	}
-	
+
 	// calculer le score en pourcentage
 	int total_winner_votes = 0;
 
@@ -132,7 +132,7 @@ int calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
  *
  * \warning Assurez-vous que la matrice de votes est correctement formatée pour représenter un scrutin uninominal à un tour.
  */
-t_resultat_uninominale uninominale_un_tour(t_mat_char_star_dyn *mat_votes) {
+char* uninominale_un_tour(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	t_resultat_uninominale resultat;
 
 	// trouver le vainqueur
@@ -143,13 +143,14 @@ t_resultat_uninominale uninominale_un_tour(t_mat_char_star_dyn *mat_votes) {
 	resultat.nb_votants = mat_votes->rows - 1;
 	resultat.vainqueur = strdup(vainqueur);
 	resultat.score = calculer_score(mat_votes, vainqueur); // calculer le score
-
-	return resultat;
+	fprintf(fichier, "UNINOMINALE 1 tour : %s\n",resultat.vainqueur );
+	return resultat.vainqueur;
 }
 
 // Fonction pour le scrutin uninominal à deux tours
-t_resultat_uninominale uninominale_deux_tours(t_mat_char_star_dyn *mat_votes) {
-	t_resultat_uninominale resultat1 = uninominale_un_tour(mat_votes);
+char* uninominale_deux_tours(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
+	char* resultat1 = uninominale_un_tour(mat_votes,fichier);
+	fprintf(fichier, "UNINOMINALE 1 tour : %s\n",resultat1 );
 	return resultat1;
 	/*******************************************
 	t_resultat_uninominale resultat;
@@ -206,14 +207,13 @@ t_resultat_uninominale uninominale_deux_tours(t_mat_char_star_dyn *mat_votes) {
 
 
 // fonction principale pour la méthode uninominale
-t_resultat_uninominale methode_uninomale(t_mat_char_star_dyn *votes, bool deuxTours, FILE *fichier) {
-	t_resultat_uninominale resultat;
-	(void)fichier;
-	
+char* methode_uninomale(t_mat_char_star_dyn *votes, bool deuxTours, FILE *fichier) {
+	char* resultat;
+
 	if (deuxTours) {
-		resultat = uninominale_deux_tours(votes);
+		resultat = uninominale_deux_tours(votes,fichier);
 	} else {
-		resultat = uninominale_un_tour(votes);
+		resultat = uninominale_un_tour(votes,fichier);
 	}
 
 	return resultat;
