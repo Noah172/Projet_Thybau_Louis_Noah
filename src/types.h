@@ -80,6 +80,14 @@ typedef struct {
   char **candidats;    ///< Tableau des noms des candidats.
 } t_votes;
 
+typedef struct {
+    char **candidats;
+    int *notes;
+    int *medianes;
+    int nb_candidats;
+    int nb_votants;
+} t_resultat_majoritaire;
+
 // GRAPHE
 
 
