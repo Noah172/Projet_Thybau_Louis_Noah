@@ -2,10 +2,11 @@
 #define JUGEMENT_MAJORITAIRE_H
 
 #include "types.h"
+#include <stdio.h>
 
 
 
-void jugementMajoritaire(t_mat_char_star_dyn votes);
+
+char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier);
 
 #endif // JUGEMENT_MAJORITAIRE_H
-
