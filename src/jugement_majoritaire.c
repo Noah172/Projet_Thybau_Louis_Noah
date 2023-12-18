@@ -9,6 +9,35 @@
 int compare(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
+int calculerPourcentages(t_mat_char_star_dyn votes, int numCandidat,int mentionMajoritaire) {
+    int nbVotants = votes.rows - 1;
+    int partisans = 0;
+    int opposants = 0;
+
+    for (int i = 0; i < nbVotants; i++) {
+        if (atoi(votes.data[i][numCandidat+4]) > mentionMajoritaire) {
+            partisans++;
+        } else if (atoi(votes.data[i][numCandidat+4]) < mentionMajoritaire) {
+            opposants++;
+        }
+
+    }
+    // printf("nbVotants : %d \n",nbVotants );
+    // printf("Partisans : %d \n", partisans);
+    // printf("opposants : %d\n\n",opposants );
+
+    int pourcentagePlus = (double)partisans / nbVotants * 100;
+    int pourcentageMoins = (double)opposants / nbVotants * 100;
+    //
+    // printf("pourcentagePlus : %d\n", pourcentagePlus);
+    // printf("pourcentageMoins : %d\n", pourcentageMoins);
+    if (pourcentagePlus<pourcentageMoins) {
+        return pourcentageMoins;
+    }
+    return pourcentagePlus;
+}
+
+
 
 char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
     t_resultat_majoritaire resultat;
@@ -50,14 +79,20 @@ char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
         free(valeurs);
     }
 
-    int index_gagnant = 0;  // Supposons que le premier candidat a la plus petite médiane initialement
-
+    int index_gagnant = 0;
     for (int i = 1; i < nb_candidats; i++) {
         if (resultat.medianes[i] < resultat.medianes[index_gagnant]) {
-            index_gagnant = i;  // Met à jour l'index du candidat avec la plus petite médiane
+            index_gagnant = i;
+        }
+        else if (resultat.medianes[i] == resultat.medianes[index_gagnant]) {
+            int i_percent= calculerPourcentages(votes,i,resultat.medianes[i]);
+            int index_gagnant_percent= calculerPourcentages(votes,index_gagnant,resultat.medianes[i]);
+            index_gagnant = (i_percent > index_gagnant_percent) ? i : index_gagnant;
+
+
         }
     }
-    fprintf(fichier, "Vainqeir JM%s\n",resultat.candidats[index_gagnant] );
+    fprintf(fichier, "Mode de scrutin : Jugement Majoritaire, %d candidats, %d votants, vainqueur =  %s\n\n",nb_candidats,nb_votants,resultat.candidats[index_gagnant] );
 
     return resultat.candidats[index_gagnant];
 }
