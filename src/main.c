@@ -18,7 +18,7 @@ creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
   for (int i = 4; i < mat_votes->cols; i++) {
     add(&liste_candidat, mat_votes->data[0][i], CHAR_TYPE);
   }
-
+  
   // creer matrce de duel
   t_mat_int_dyn matrice_duel;
   matrice_duel.cols = mat_votes->cols - 4;
@@ -32,10 +32,12 @@ creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
 
   int nb_candidats = mat_votes->cols - 4;
   int nb_votants = mat_votes->rows;
+  
   for (int i = 0; i < nb_candidats; i++) {
     matrice_duel.data[i] = (int *)malloc(nb_candidats * sizeof(int));
     memset(matrice_duel.data[i], 0, nb_candidats * sizeof(int));
   }
+  
   for (int i = 1; i < nb_votants; i++) {
     for (int j = 0; j < nb_candidats; j++) {
       for (int k = j; k < nb_candidats; k++) {
@@ -152,12 +154,13 @@ int main(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
   char *rep_fichier = "fich_tests/";
+  
   char *nom_fichier =
-      malloc(sizeof(char) * sizeof(rep_fichier) +
-             sizeof(char) * sizeof(argv[1]) + sizeof(char) * 10);
+      malloc(sizeof(char) * strlen(rep_fichier) +
+     sizeof(char) * strlen(argv[1]));
   strcpy(nom_fichier, rep_fichier);
   strcat(nom_fichier, argv[1]);
-
+  
   lire_balise(argc, argv);
 
   t_mat_char_star_dyn mat_votes = lire_fichier_csv(nom_fichier);
@@ -178,8 +181,6 @@ int main(int argc, char *argv[]) {
       }
       matrice_duels = creation_matrice_int_depuis_char(&mat_votes);
     }
-    printDynamicList(&liste_candidat);
-    afficherMatriceInt(&matrice_duels);
   }
 
   if (d) {
