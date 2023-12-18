@@ -154,15 +154,15 @@ void test_jugement_majoritaire(char *fichier_csv,char *vainqueur_attendu) {
 int main() {
     // UNINOMINALE 1 TOUR
     test_uninominale_1_tour("fich_tests/vote10.csv", "Baba au rhum");
-    test_uninominale_1_tour("fich_tests/vote100.csv", "Asterix");
-    test_uninominale_1_tour("fich_tests/ballots_va.csv","A");
+    test_uninominale_1_tour("fich_tests/vote100.csv", "Astérix");
+    test_uninominale_1_tour("fich_tests/ballots_va.csv","D");
 
     // UNINOMINALE 2 TOURS
     test_uninominale_2_tours("fich_tests/vote10.csv", "Baba au rhum");
-    test_uninominale_2_tours("fich_tests/vote100.csv", "Asterix");//ou Assurenceousrisque
-    test_uninominale_2_tours("fich_tests/ballots_va.csv","A");
+    test_uninominale_2_tours("fich_tests/vote100.csv", "Astérix");//ou Assurenceousrisque
+    test_uninominale_2_tours("fich_tests/ballots_va.csv","D");
 
-    // CONDORDET MINIMAX
+    // CONCORDET MINIMAX
     test_condorcet_minimax("fich_tests/vote10.csv", "Charlotte aux poires");
     test_condorcet_minimax("fich_tests/vote100.csv", "Abraracourcix");
     test_condorcet_minimax("fich_tests/ballots_va.csv","C");
@@ -172,9 +172,9 @@ int main() {
     test_condorcet_minimax("fich_tests/wiki_paires.csv","B");
 
     //JUGEMENT MAJORITAIRE
-    test_jugement_majoritaire("fich_tests/vote10.csv","Charlotte aux poires");
+    test_jugement_majoritaire("fich_tests/vote10.csv","Clafouti");
     test_jugement_majoritaire("fich_tests/vote100.csv","Abraracourcix");
-    test_jugement_majoritaire("fich_tests/ballots_va.csv","B");
+    test_jugement_majoritaire("fich_tests/ballots_va.csv","C");
 
 
     printf(COLOR_GREEN"\n--------------------------------------------------------------------\n-----------------------------%d/16 RÉUSSIS---------------------------\n--------------------------------------------------------------------\n\n",compteur );
