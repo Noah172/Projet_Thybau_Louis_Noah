@@ -7,7 +7,8 @@
 #include <string.h>
 #include <stdbool.h>
 
-
+#define COLOR_ORANGE "\x1b[38;5;208m"
+#define COLOR_RESET "\x1b[0m"
 
 /**
  * \brief Trouve le vainqueur avec la méthode uninominale.
@@ -119,25 +120,28 @@ int calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
  */
  t_resultat_uninominale resultat;
 char* uninominale_un_tour(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
-
+	fprintf(fichier, "[Uninominale] Début du scrutin à un tour\n");
 	char *vainqueur = trouver_vainqueur(mat_votes);
 
 	resultat.nb_candidats = mat_votes->cols - 4;
 	resultat.nb_votants = mat_votes->rows - 1;
 	resultat.vainqueur = strdup(vainqueur);
 	resultat.score = calculer_score(mat_votes, vainqueur);
-	fprintf(fichier, "Mode de scrutin : Uninominale 1 tour, %d candidats, %d votants, vainqueur = %s, score = %d pourcents",resultat.nb_candidats,resultat.nb_votants,resultat.vainqueur ,resultat.score);
+	fprintf(fichier, "[Uninominale 1 Tour] Fin du scrutin\n");
+	fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Uninominale 1 tour, %d candidats, %d votants, vainqueur = %s, score = %d pourcents",resultat.nb_candidats,resultat.nb_votants,resultat.vainqueur ,resultat.score);
 	return resultat.vainqueur;
 }
 
 char* uninominale_deux_tours(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
+	fprintf(fichier, "[Uninominale] Début du scrutin à deux tours\n");
 	FILE *fichierSortie = fopen("SortieUni1.txt", "w");
     if (fichierSortie == NULL) {
         fprintf(stderr, "Erreur lors de l'ouverture du fichier.\n");
     }
 	uninominale_un_tour(mat_votes,fichierSortie);
 	if (resultat.score>49) {
-		fprintf(fichier, "Mode de scrutin : Uninominale 2 tour, %d candidats, %d votants, vainqueur = %s, score = %d pourcents",resultat.nb_candidats,resultat.nb_votants,resultat.vainqueur ,resultat.score);
+		fprintf(fichier, "[Uninominale 2 Tours] Fin du scrutin (2ème tour) : un candidat a obtenu la majoritée\n");
+		fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Uninominale 2 tour, %d candidats, %d votants, vainqueur = %s, score = %d pourcents",resultat.nb_candidats,resultat.nb_votants,resultat.vainqueur ,resultat.score);
 		return resultat.vainqueur;
 	}
 	int nb_candidats=resultat.nb_candidats;
@@ -163,7 +167,7 @@ char* uninominale_deux_tours(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	}
 	char* vainqueur=mat_votes->data[0][vainqueur1+4];
 	float score_vaiqueur=(score_candidat1/(score_candidat1+score_candidat2))*100;
-	fprintf(fichier, "Mode de scrutin : Uninominale 2 tour, %d candidats, %d votants, vainqueur = %s, score = %f pourcents",resultat.nb_candidats,resultat.nb_votants,vainqueur ,score_vaiqueur);
+	fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Uninominale 2 tour, %d candidats, %d votants, vainqueur = %s, score = %f pourcents",resultat.nb_candidats,resultat.nb_votants,vainqueur ,score_vaiqueur);
 	return vainqueur;
 }
 

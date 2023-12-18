@@ -9,6 +9,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define COLOR_ORANGE "\x1b[38;5;208m"
+#define COLOR_RESET "\x1b[0m"
+
 /// \var int taille_matrice
 /// \brief Taille de la matrice (nombre de candidats).
 int taille_matrice;
@@ -104,7 +107,7 @@ int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
   /// \brief Parcours de la matrice pour trouver le maximum de chaque duel
   for (int i = 0; i < taille_matrice; i++) {
     for (int j = 0; j < taille_matrice; j++) {
-      
+
       if (matrice.data[get_int(&max, 0)][get_int(&max, 1)] <
           matrice.data[i][j]) {
         set_int(&max, 0, i);
@@ -134,6 +137,8 @@ int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
   /// \brief Si c vaut 0, alors il n'y a pas d'égalité et on a un vainqueur
   if (c == 0) {
     fprintf(fichier, "[Condorcet] Pas d'égalité trouvée\n");
+
+    fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Condorcet, %d candidats, %d votants, vainqueur =  %s\n\n",matrice.cols ,matrice.data[1][0]+matrice.data[0][1],get_char(&liste_candidat, get_int(&max, 0)) );
     return get_int(&max, 0);
   } else {
     fprintf(fichier, "[Condorcet] Égalité trouvée, il n'y a pas de vainqueur, "

@@ -5,6 +5,8 @@
 #include <string.h>
 
 
+#define COLOR_ORANGE "\x1b[38;5;208m"
+#define COLOR_RESET "\x1b[0m"
 
 int compare(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
@@ -40,8 +42,9 @@ int calculerPourcentages(t_mat_char_star_dyn votes, int numCandidat,int mentionM
 
 
 char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
+    fprintf(fichier, "[JugementMajoritaire] Début du calcul\n");
     t_resultat_majoritaire resultat;
-    int nb_candidats = votes.cols - 5; // Il semble que les colonnes 0 à 3 ne sont pas utilisées
+    int nb_candidats = votes.cols - 4; // Il semble que les colonnes 0 à 3 ne sont pas utilisées
     int nb_votants = votes.rows - 1;
 
     resultat.nb_candidats = nb_candidats;
@@ -58,7 +61,7 @@ char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
         resultat.candidats[i] = votes.data[0][i + 4];
         resultat.notes[i] = 0;
     }
-
+    fprintf(fichier, "[JugementMajoritaire] Listes des candidats créée\n");
     for (int i = 0; i < nb_candidats; i++) {
         int *valeurs = malloc(nb_votants * sizeof(int));
         if (valeurs == NULL) {
@@ -78,7 +81,7 @@ char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
 
         free(valeurs);
     }
-
+    fprintf(fichier, "[JugementMajoritaire] Listes des médianes créée\n");
     int index_gagnant = 0;
     for (int i = 1; i < nb_candidats; i++) {
         if (resultat.medianes[i] < resultat.medianes[index_gagnant]) {
@@ -92,7 +95,7 @@ char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
 
         }
     }
-    fprintf(fichier, "Mode de scrutin : Jugement Majoritaire, %d candidats, %d votants, vainqueur =  %s\n\n",nb_candidats,nb_votants,resultat.candidats[index_gagnant] );
+    fprintf(fichier, COLOR_ORANGE"Mode de scrutin : Jugement Majoritaire, %d candidats, %d votants, vainqueur =  %s\n\n",nb_candidats,nb_votants,resultat.candidats[index_gagnant] );
 
     return resultat.candidats[index_gagnant];
 }

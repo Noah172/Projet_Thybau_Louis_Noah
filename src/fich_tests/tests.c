@@ -12,9 +12,9 @@
 #include "../list.h"
 
 
-#define COLOR_BLUE "\x1b[34m"  // Code ANSI pour la couleur bleue
-#define COLOR_GREEN "\x1b[32m" // Code ANSI pour la couleur verte
-#define COLOR_RED "\x1b[31m"   // Code ANSI pour la couleur rouge
+#define COLOR_BLUE "\x1b[34m" 
+#define COLOR_GREEN "\x1b[32m"
+#define COLOR_RED "\x1b[31m"
 #define COLOR_RESET "\x1b[0m"
 int compteur = 0;
 

@@ -1,5 +1,5 @@
-UNINOMINALE 1 tour : Charlotte aux poires
-UNINOMINALE 1 tour : Charlotte aux poires
-cet] Maximum trouvé : correspondant au candidat Charlotte aux poires
-[Condorcet] Recherche d'égalité
-[Condorcet] Pas d'égalité trouvée
+[Uninominale] Début du scrutin à un tour
+[Uninominale 1 Tour] Fin du scrutin
+[38;5;208mMode de scrutin : Uninominale 1 tour, 5 candidats, 10 votants, vainqueur = Baba au rhum, score = 20 pourcentsCondorcet] Pas d'égalité trouvée
+[38;5;208mMode de scrutin : Condorcet, 5 candidats, 6 votants, vainqueur =  Charlotte aux poires
+
