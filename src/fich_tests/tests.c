@@ -162,14 +162,14 @@ int main() {
     test_uninominale_2_tours("fich_tests/vote100.csv", "Asterix");//ou Assurenceousrisque
     test_uninominale_2_tours("fich_tests/ballots_va.csv","A");
 
-    // CONCORDET MINIMAX
-    test_condorcet_minimax("fich_tests/vote10.csv", "Tarte à la fraise");
-    test_condorcet_minimax("fich_tests/vote100.csv", "Astérix");
-    test_condorcet_minimax("fich_tests/ballots_va.csv","A");
+    // CONDORDET MINIMAX
+    test_condorcet_minimax("fich_tests/vote10.csv", "Charlotte aux poires");
+    test_condorcet_minimax("fich_tests/vote100.csv", "Abraracourcix");
+    test_condorcet_minimax("fich_tests/ballots_va.csv","C");
     test_condorcet_minimax("fich_tests/calcul1.csv","Z");
-    test_condorcet_minimax("fich_tests/calcul2.csv","Y");
-    test_condorcet_minimax("fich_tests/2012.csv","h");
-    test_condorcet_minimax("fich_tests/wiki_paires.csv","A");
+    test_condorcet_minimax("fich_tests/calcul2.csv","Z");
+    test_condorcet_minimax("fich_tests/2012.csv","H");
+    test_condorcet_minimax("fich_tests/wiki_paires.csv","B");
 
     //JUGEMENT MAJORITAIRE
     test_jugement_majoritaire("fich_tests/vote10.csv","Charlotte aux poires");
