@@ -1,3 +1,9 @@
+/* \file methode_uninomale.c
+ * \brief Implémentation de la méthode uninominale.
+ *
+ * Ce fichier contient l'implémentation de la méthode principale pour les scrutins
+ * uninominaux, prenant en compte la possibilité d'un scrutin à un ou deux tours.
+ */
 #define _DEFAULT_SOURCE
 #define _SVID_SOURCE
 #include "uninominale.h"
@@ -147,6 +153,22 @@ char* uninominale_un_tour(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	return resultat.vainqueur;
 }
 
+/**
+ * \brief Effectue un scrutin uninominal à deux tours et renvoie le vainqueur.
+ *
+ * Cette fonction réalise un scrutin uninominal à deux tours, en supposant que le deuxième tour est virtuel
+ * en cas de non-majorité au premier tour. Elle trouve le vainqueur et renvoie son nom. Les résultats
+ * sont également affichés dans un fichier de sortie et dans la console.
+ *
+ * \param[in] mat_votes La matrice des votes, représentant les évaluations de chaque votant pour chaque candidat.
+ * \param[in] fichier Le fichier de sortie où les résultats seront affichés.
+ * \return Le nom du vainqueur du scrutin à deux tours.
+ *
+ * \note La fonction suppose que les votes sont stockés dans la matrice, avec les noms de candidats
+ * commençant à la colonne 4 et les votes correspondants commençant à la ligne 1.
+ *
+ * \warning Assurez-vous que la matrice de votes est correctement formatée pour représenter un scrutin uninominal à deux tours.
+ */
 char* uninominale_deux_tours(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	fprintf(fichier, "[Uninominale] Début du scrutin à deux tours\n");
 	FILE *fichierSortie = fopen("SortieUni1.txt", "w");
@@ -198,6 +220,14 @@ char* uninominale_deux_tours(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	return vainqueur;
 }
 
+/* \fn char* methode_uninomale(t_mat_char_star_dyn *votes, bool deuxTours, FILE *fichier)
+ * \brief Applique la méthode uninominale en un ou deux tours selon le paramètre.
+ *
+ * \param[in] votes La matrice des votes.
+ * \param[in] deuxTours Booléen indiquant si la méthode doit être appliquée en deux tours.
+ * \param[in] fichier Le fichier de sortie pour enregistrer les résultats.
+ * \return Le nom du vainqueur selon la méthode uninominale choisie.
+ */
 char* methode_uninomale(t_mat_char_star_dyn *votes, bool deuxTours, FILE *fichier) {
 	char* resultat;
 
