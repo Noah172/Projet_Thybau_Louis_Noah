@@ -4,11 +4,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+
 int compare(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
 
-void jugementMajoritaire(t_mat_char_star_dyn votes) {
+char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
     t_resultat_majoritaire resultat;
     int nb_candidats = votes.cols - 5; // Il semble que les colonnes 0 à 3 ne sont pas utilisées
     int nb_votants = votes.rows - 1;
@@ -55,11 +57,7 @@ void jugementMajoritaire(t_mat_char_star_dyn votes) {
             index_gagnant = i;  // Met à jour l'index du candidat avec la plus petite médiane
         }
     }
+    fprintf(fichier, "Vainqeir JM%s\n",resultat.candidats[index_gagnant] );
 
-    printf("Vainqueur : %s\n", resultat.candidats[index_gagnant]);
-
-
-    free(resultat.candidats);
-    free(resultat.notes);
-    free(resultat.medianes);
+    return resultat.candidats[index_gagnant];
 }
