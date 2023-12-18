@@ -113,7 +113,7 @@ int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
       }
     }
   }
-  printf("Maxmum %d\n", get_int(&max, 0));
+  fprintf(fichier,"Maximum %d\n", get_int(&max, 0));
   char *vainqueur = get_char(&liste_candidat, get_int(&max, 0));
   fprintf(fichier,
           "[Condorcet] Maximum trouvé : correspondant au candidat %s\n",
