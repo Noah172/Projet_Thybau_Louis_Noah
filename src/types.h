@@ -1,102 +1,98 @@
+/// \file types.h
+/// \brief Définir les différents types utilisés dans le projet
+
 #ifndef TYPES_H
 #define TYPES_H
 
-// STRUCTURE DE DONNEE
-
-// Structure d'un élément de la liste
+/// \enum DataType
+/// \brief Enumération définissant le type de données pour un élément de la
+/// liste.
 typedef enum {
-    INT_TYPE,
-    CHAR_TYPE
+  INT_TYPE, ///< Entier
+  CHAR_TYPE, ///< Chaine de caractères
+  SOMMET_TYPE ///< Sommet  
 } DataType;
 
+/// \struct Node
+/// \brief Structure d'un élément de la liste.
 typedef struct Node {
-  int data_int;
-  char* data_str;
-  DataType type;
-  struct Node *next;
+  int data_int;      ///< Donnée de type entier.
+  char *data_str;    ///< Donnée de type chaîne de caractères.
+  DataType type;     ///< Type de la donnée.
+  struct Node *next; ///< Pointeur vers l'élément suivant.
 } Node;
 
-// Structure de la liste
+/// \struct CircularList
+/// \brief Structure d'une liste circulaire.
 typedef struct {
-  Node *head;
-  Node *tail;
-  int nb_elem;
+  Node *head;  ///< Pointeur vers le premier élément de la liste.
+  Node *tail;  ///< Pointeur vers le dernier élément de la liste.
+  int nb_elem; ///< Nombre d'éléments dans la liste.
 } CircularList;
 
+/// \struct DynamicList
+/// \brief Structure d'une liste dynamique.
 typedef struct {
-  Node *head;
-  int size;
+  Node *head; ///< Pointeur vers le premier élément de la liste.
+  int size;   ///< Nombre d'éléments dans la liste.
 } DynamicList;
 
+/// \struct t_mat_int_dyn
+/// \brief Structure pour représenter une matrice d'entiers dynamique.
 typedef struct {
-  int **data;
-  int rows;
-  int cols;
+  int **data; ///< Tableau de données (matrice).
+  int rows;   ///< Nombre de lignes dans la matrice.
+  int cols;   ///< Nombre de colonnes dans la matrice.
 } t_mat_int_dyn;
 
+/// \struct t_mat_char_star_dyn
+/// \brief Structure pour représenter une matrice de chaînes de caractères
+/// dynamique.
 typedef struct {
-  char ***data;
-  int rows;
-  int cols;
+  char ***data; ///< Tableau de données (matrice).
+  int rows;     ///< Nombre de lignes dans la matrice.
+  int cols;     ///< Nombre de colonnes dans la matrice.
 } t_mat_char_star_dyn;
 
+/// \struct t_resultat_uninominale
+/// \brief Structure pour représenter les résultats d'une élection uninominale.
 typedef struct {
-  int nb_candidats;
-  int nb_votants;
-  char *vainqueur;
-  float score;
+  char **candidats; ///< Tableau des noms des candidats.
+  int nb_candidats; ///< Nombre de candidats.
+  char *vainqueur;  ///< Nom du vainqueur.
+  int nb_votants;   ///< Nombre de votants.
+  int score;        ///< Score du vainqueur.
 } t_resultat_uninominale;
 
+/// \struct t_votants
+/// \brief Structure pour représenter les votes d'un votant.
 typedef struct {
-  int id;
-  int *vote;
+  int id;    ///< Identifiant du votant.
+  int *vote; ///< Tableau des votes du votant.
 } t_votants;
 
+/// \struct t_votes
+/// \brief Structure pour représenter l'ensemble des votes.
 typedef struct {
-  t_votants **votants;
-  int nb_candidats;
-  int nb_votants;
-  char **candidats;
+  t_votants **votants; ///< Tableau des votants.
+  int nb_candidats;    ///< Nombre de candidats.
+  int nb_votants;      ///< Nombre de votants.
+  char **candidats;    ///< Tableau des noms des candidats.
 } t_votes;
-
-typedef struct {
-    char **candidats;
-    int *notes;
-    int *medianes;
-    int nb_candidats;
-    int nb_votants;
-} t_resultat_majoritaire;
 
 // GRAPHE
 
-typedef struct t_sommet {
-  char *valeur;
-  struct t_sommet *suivant; // Sommet suivant dans le graphe
-  struct t_sommet *origine; // Sommet d'origine dans le graphe
-} t_sommet;
 
-/*typedef struct {
-  t_sommet *source;
-  t_sommet *destination;
-  int poids;
-} t_arc;*/
+// Structure représentant un nœud du graphe
+typedef struct Sommet {
+  char* data;
+  struct Sommet **next; 
+} Sommet;
 
-typedef struct {
-  char *source;
-  char *destination;
-  int poids;
-} t_arc;
-
-typedef struct {
-  t_arc *arcs;
-  t_sommet **sommets;
-  int count;
-} t_graph;
-
-// Structure pour représenter un cycle
-typedef struct {
-  t_arc *arcs;
-  int count;
-} t_cycle;
+// Structure représentant le graphe
+typedef struct Graph {
+  int numNodes;
+  Sommet **sommets; 
+} Graph;
 
 #endif // TYPES_H
