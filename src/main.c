@@ -187,6 +187,7 @@ int main(int argc, char *argv[]) {
        fichier = fopen(param_o,"w"); // Ouverture du fichier en mode écriture
 
        if (fichier == NULL) {
+         printf("Echec ouvertur fichiier %s, bascule vers stdout\n", param_o);
          fichier = stdout;
        }
      }
