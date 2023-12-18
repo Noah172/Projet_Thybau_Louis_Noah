@@ -1,0 +1,5 @@
+UNINOMINALE 1 tour : Charlotte aux poires
+UNINOMINALE 1 tour : Charlotte aux poires
+cet] Maximum trouvé : correspondant au candidat Charlotte aux poires
+[Condorcet] Recherche d'égalité
+[Condorcet] Pas d'égalité trouvée

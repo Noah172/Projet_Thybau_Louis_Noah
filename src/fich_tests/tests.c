@@ -123,15 +123,18 @@ void test_condorcet_minimax(char *fichier_csv, char *vainqueur_attendu) {
     DynamicList liste_candidat;
     initDynamicList(&liste_candidat);
     t_mat_int_dyn matrice_duels;
-    for (int i = 0; i < votes.cols; i++) {
-      add(&liste_candidat, votes.data[0][i], CHAR_TYPE);
-    }
-
     if (strcmp(votes.data[0][0], "ID votant") == 0) {
+      for (int i = 4; i < votes.cols; i++) {
+        add(&liste_candidat, votes.data[0][i], CHAR_TYPE);
+      }
       matrice_duels = creation_matrice_int_depuis_vote_ballots(&votes);
     } else {
+      for (int i = 0; i < votes.cols; i++) {
+        add(&liste_candidat, votes.data[0][i], CHAR_TYPE);
+      }
       matrice_duels = creation_matrice_int_depuis_char(&votes);
     }
+
     char *vainqueur = methodeCondorcetMinimax(matrice_duels,liste_candidat,fichierSortie);
     afficher_resultat_test("CONCORCET MINIMAX", fichier_csv, vainqueur_attendu, vainqueur, strcmp(vainqueur, vainqueur_attendu) == 0);
 }
