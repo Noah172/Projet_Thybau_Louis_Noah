@@ -1,3 +1,9 @@
+/* \file jugement_majoritaire.c
+ * \brief Implémentation de la méthode de Jugement Majoritaire.
+ *
+ * Ce fichier contient l'implémentation de la méthode de Jugement Majoritaire,
+ * une méthode de scrutin qui utilise des médianes pour déterminer le vainqueur.
+ */
 #include "jugement_majoritaire.h"
 #include "types.h"
 #include <stdio.h>
@@ -8,9 +14,23 @@
 #define COLOR_ORANGE "\x1b[38;5;208m"
 #define COLOR_RESET "\x1b[0m"
 
+/* \fn int compare(const void *a, const void *b)
+ * \brief Fonction de comparaison pour le tri des valeurs.
+ * \param[in] a Pointeur vers la première valeur.
+ * \param[in] b Pointeur vers la deuxième valeur.
+ * \return Différence entre les deux valeurs.
+ */
 int compare(const void *a, const void *b) {
     return (*(int *)a - *(int *)b);
 }
+
+/* \fn int calculerPourcentages(t_mat_char_star_dyn votes, int numCandidat, int mentionMajoritaire)
+ * \brief Calcule les pourcentages de partisans et d'opposants pour un candidat donné.
+ * \param[in] votes La matrice des votes.
+ * \param[in] numCandidat Le numéro du candidat.
+ * \param[in] mentionMajoritaire La mention considérée comme majoritaire.
+ * \return Le pourcentage le plus élevé entre partisans et opposants.
+ */
 int calculerPourcentages(t_mat_char_star_dyn votes, int numCandidat,int mentionMajoritaire) {
     int nbVotants = votes.rows - 1;
     int partisans = 0;
@@ -40,7 +60,12 @@ int calculerPourcentages(t_mat_char_star_dyn votes, int numCandidat,int mentionM
 }
 
 
-
+/* \fn char* jugementMajoritaire(t_mat_char_star_dyn votes, FILE *fichier)
+ * \brief Applique la méthode de Jugement Majoritaire.
+ * \param[in] votes La matrice des votes.
+ * \param[in] fichier Le fichier de sortie pour enregistrer les résultats.
+ * \return Le nom du vainqueur selon la méthode de Jugement Majoritaire.
+ */
 char* jugementMajoritaire(t_mat_char_star_dyn votes,FILE *fichier) {
     fprintf(fichier, "[JugementMajoritaire] Début du calcul\n");
     t_resultat_majoritaire resultat;
