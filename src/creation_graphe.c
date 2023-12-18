@@ -41,7 +41,7 @@
 //     int *recStack = malloc(graphe->count * sizeof(int));
 //     memset(visited, 0, graphe->count * sizeof(int));
 //     memset(recStack, 0, graphe->count * sizeof(int));
-    
+
 //     confirmer_arcs_sans_cycle(graphe, visited, recStack, i);
 
 //     if (graphe->arcs[i].confirme == 0) {
@@ -69,7 +69,7 @@
 //         arc.source = liste_candidat[i];
 //         arc.destination = liste_candidat[j];
 //         arc.poids = source - destination;
-        
+
 //         graphe.arcs[graphe.count] = arc;
 //         graphe.count++;
 //       }

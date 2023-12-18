@@ -12,7 +12,7 @@
 #include "../list.h"
 
 
-#define COLOR_BLUE "\x1b[34m" 
+#define COLOR_BLUE "\x1b[34m"
 #define COLOR_GREEN "\x1b[32m"
 #define COLOR_RED "\x1b[31m"
 #define COLOR_RESET "\x1b[0m"
@@ -135,7 +135,7 @@ void test_condorcet_minimax(char *fichier_csv, char *vainqueur_attendu) {
       matrice_duels = creation_matrice_int_depuis_char(&votes);
     }
 
-    char *vainqueur = methodeCondorcetMinimax(matrice_duels,liste_candidat,fichierSortie);
+    char *vainqueur = methodeCondorcetMinimax(matrice_duels,liste_candidat,fichierSortie,votes.rows-1);
     afficher_resultat_test("CONCORCET MINIMAX", fichier_csv, vainqueur_attendu, vainqueur, strcmp(vainqueur, vainqueur_attendu) == 0);
 }
 

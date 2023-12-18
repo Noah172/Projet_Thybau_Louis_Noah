@@ -132,7 +132,7 @@ int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
         c++;
       }
     }
-  }
+}//
 
   /// \brief Si c vaut 0, alors il n'y a pas d'égalité et on a un vainqueur
   if (c == 0) {
