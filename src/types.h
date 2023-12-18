@@ -10,7 +10,7 @@
 typedef enum {
   INT_TYPE, ///< Entier
   CHAR_TYPE, ///< Chaine de caractères
-  SOMMET_TYPE ///< Sommet  
+  SOMMET_TYPE ///< Sommet
 } DataType;
 
 /// \struct Node
@@ -61,7 +61,7 @@ typedef struct {
   int nb_candidats; ///< Nombre de candidats.
   char *vainqueur;  ///< Nom du vainqueur.
   int nb_votants;   ///< Nombre de votants.
-  int score;        ///< Score du vainqueur.
+  float score;        ///< Score du vainqueur.
 } t_resultat_uninominale;
 
 /// \struct t_votants
@@ -94,13 +94,15 @@ typedef struct {
 // Structure représentant un nœud du graphe
 typedef struct Sommet {
   char* data;
-  struct Sommet **next; 
+  struct Sommet **next;
+  int *next_value;
+  int nb_next;
 } Sommet;
 
 // Structure représentant le graphe
 typedef struct Graph {
   int numNodes;
-  Sommet **sommets; 
+  Sommet **sommets;
 } Graph;
 
 #endif // TYPES_H

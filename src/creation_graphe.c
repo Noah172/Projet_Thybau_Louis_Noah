@@ -39,15 +39,15 @@
   }
 }*/
 
-// Fonction pour créer un nouveau nœud
 Sommet* createNode(char* data) {
   Sommet* newSommet= (Sommet*)malloc(sizeof(Sommet));
     newSommet->data = data;
     newSommet->next = NULL;
+    newSommet->next_value = NULL;
+    newSommet->nb_next = 0;
     return newSommet;
 }
 
-// Fonction pour créer un graphe vide
 Graph* createGraph() {
     Graph* graph = (Graph*)malloc(sizeof(Graph));
     graph->numNodes = 0;
@@ -55,7 +55,6 @@ Graph* createGraph() {
     return graph;
 }
 
-// Fonction pour ajouter un nœud au graphe
 void addNode(Graph* graph, char* data) {
   Sommet* newSommet= createNode(data);
 
@@ -65,22 +64,23 @@ void addNode(Graph* graph, char* data) {
     graph->numNodes++;
 }
 
-// Fonction pour ajouter une arête dirigée entre deux nœuds
-void addEdge(Graph* graph, Sommet* src, Sommet* dest) {
-  
-        newSommet->next = graph->sommets[src];
-        graph->sommets[src] = newSommet;
+void addEdge( Sommet* src, Sommet* dest,int poids) {
+    src->next = (Sommet**)realloc(src->next, (src->nb_next + 1) * sizeof(Sommet*));
+    src->next_value = (int*)realloc(src->next_value, (src->nb_next + 1) * sizeof(int));
+
+
+    src->next[src->nb_next] = dest;
+    src->next_value[src->nb_next] = poids;
+    src->nb_next++;
 }
 
-// Fonction pour afficher le graphe
 void printGraph(Graph* graph) {
     for (int i = 0; i < graph->numNodes; ++i) {
-      Sommet* currentSommet= graph->sommets[i];
+        Sommet* currentSommet = graph->sommets[i];
         printf("Nœud %d :", i);
 
-        while (currentSommet!= NULL) {
-            printf(" -> %d", currentSommet->data);
-            currentSommet= currentSommet->next;
+        for (int j = 0; j < currentSommet->nb_next; ++j) {
+            printf(" -> %s (%d)", currentSommet->next[j]->data, currentSommet->next_value[j]);
         }
 
         printf("\n");

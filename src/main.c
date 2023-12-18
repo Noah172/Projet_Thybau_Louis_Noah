@@ -5,6 +5,7 @@
 #include "modules/csv_votes.h"
 #include "modules/lecture_csv.h"
 #include "uninominale.h"
+#include "creation_graphe.h"
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -242,6 +243,16 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+  Graph* graph = createGraph();
+
+  addNode(graph, "A");
+  addNode(graph, "B");
+  addNode(graph, "C");
+ 
+  addEdge(graph->sommets[0], graph->sommets[1], 5);
+  addEdge(graph->sommets[1], graph->sommets[2], 8);
+
+  printGraph(graph);
 
   free(nom_fichier);
   return 0;
