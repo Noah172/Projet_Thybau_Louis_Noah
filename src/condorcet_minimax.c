@@ -17,7 +17,7 @@ int taille_matrice;
 /// \brief Trouve le minimum de chaque duel dans la matrice.
 ///
 /// \param matrice La matrice des duels.
-/// \return L'indice du candidat qui a le plus petit score dans chaque duel, ou
+/// \return Le candidat qui a le plus petit score dans chaque duel, ou
 /// -1 s'il y a une égalité.
 int minimax(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE *fichier) {
 
@@ -102,15 +102,18 @@ int condorcet_minimax(t_mat_int_dyn matrice, DynamicList liste_candidat,
   add(&max, &index1, INT_TYPE);
   fprintf(fichier, "[Condorcet] Recherche du maximum de chaque duel\n");
   /// \brief Parcours de la matrice pour trouver le maximum de chaque duel
-  for (int i = 1; i < taille_matrice; i++) {
+  for (int i = 0; i < taille_matrice; i++) {
     for (int j = 0; j < taille_matrice; j++) {
+      
       if (matrice.data[get_int(&max, 0)][get_int(&max, 1)] <
           matrice.data[i][j]) {
         set_int(&max, 0, i);
         set_int(&max, 1, j);
+
       }
     }
   }
+  printf("Maxmum %d\n", get_int(&max, 0));
   char *vainqueur = get_char(&liste_candidat, get_int(&max, 0));
   fprintf(fichier,
           "[Condorcet] Maximum trouvé : correspondant au candidat %s\n",
