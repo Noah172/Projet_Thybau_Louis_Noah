@@ -1,3 +1,6 @@
+/** \file condorcet_paires.c
+ *  \brief Implémentation des fonctions pour la méthode de Condorcet Paires.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,6 +11,13 @@
 #define COLOR_ORANGE "\x1b[38;5;208m"
 #define COLOR_RESET "\x1b[0m"
 
+/** \fn findMaxDuel(Graph *graph, int *max, FILE *fichier)
+ *  \brief Trouve le duel avec le score le plus élevé dans le graphe.
+ *
+ *  \param graph Pointeur vers le graphe.
+ *  \param max Tableau pour stocker les indices des candidats du duel.
+ *  \param fichier Pointeur vers le fichier de sortie.
+ */
 void findMaxDuel(Graph *graph, int *max, FILE *fichier) {
     int maxScore = -1;
 
@@ -33,6 +43,13 @@ void findMaxDuel(Graph *graph, int *max, FILE *fichier) {
     fprintf(fichier, "[Condorcet Paires] Maximum trouvé : candidat %d vs candidat %d\n", max[0], max[1]);
 }
 
+/** \fn eliminateCandidates(Graph *graph, int *max, FILE *fichier)
+ *  \brief Élimine les candidats sauf ceux du duel avec le score maximum.
+ *
+ *  \param graph Pointeur vers le graphe.
+ *  \param max Tableau contenant les indices des candidats du duel.
+ *  \param fichier Pointeur vers le fichier de sortie.
+ */
 void eliminateCandidates(Graph *graph, int *max, FILE *fichier) {
     Graph *newGraph = createGraph();
     addNode(newGraph, graph->sommets[max[0]]->data);
@@ -58,6 +75,15 @@ void eliminateCandidates(Graph *graph, int *max, FILE *fichier) {
     fprintf(fichier, "[Condorcet Paires] Élimination des candidats sauf %s et %s\n", graph->sommets[0]->data, graph->sommets[1]->data);
 }
 
+/** \fn condorcet_pairs(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE *fichier, int nb_votants)
+ *  \brief Applique la méthode de Condorcet Paires pour déterminer le vainqueur.
+ *
+ *  \param matrice Matrice des duels entre les candidats.
+ *  \param liste_candidat Liste des candidats.
+ *  \param fichier Pointeur vers le fichier de sortie.
+ *  \param nb_votants Nombre de votants.
+ *  \return L'indice du candidat vainqueur ou -1 en cas d'égalité.
+ */
 int condorcet_pairs(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE *fichier, int nb_votants) {
     Graph *graph = createGraph();
 
@@ -93,6 +119,15 @@ int condorcet_pairs(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE *fic
     }
 }
 
+/** \fn CondorcetouPaires(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE *fichier, int nb_votants)
+ *  \brief Applique la méthode de Condorcet Paires ou la méthode de Condorcet en cas d'égalité.
+ *
+ *  \param matrice Matrice des duels entre les candidats.
+ *  \param liste_candidat Liste des candidats.
+ *  \param fichier Pointeur vers le fichier de sortie.
+ *  \param nb_votants Nombre de votants.
+ *  \return L'indice du candidat vainqueur ou -1 en cas d'égalité.
+ */
 int CondorcetouPaires(t_mat_int_dyn matrice, DynamicList liste_candidat, FILE *fichier, int nb_votants) {
     DynamicList max;
     initDynamicList(&max);
