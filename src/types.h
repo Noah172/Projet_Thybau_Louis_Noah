@@ -41,10 +41,9 @@ typedef struct {
 } t_mat_char_star_dyn;
 
 typedef struct {
-  char **candidats;
   int nb_candidats;
-  char *vainqueur;
   int nb_votants;
+  char *vainqueur;
   int score;
 } t_resultat_uninominale;
 
