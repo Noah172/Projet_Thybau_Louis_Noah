@@ -22,7 +22,7 @@ mrproper: clean
 	rm -f -r html latex
 
 doc:
-	doxygen documentation
+	doxygen config
 
 tests: $(TEST_SOURCES) $(MODULE_SOURCES) $(SOURCES)
 	$(CC) $(CFLAGS) $(TEST_SOURCES) $(MODULE_SOURCES) -o tests $(LDFLAGS)
