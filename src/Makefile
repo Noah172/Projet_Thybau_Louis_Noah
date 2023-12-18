@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99
 LDFLAGS = -lm
-SOURCES = main.c uninominale.c condorcet_minimax.c modules/lecture_csv.c modules/csv_votes.c jugement_majoritaire.c creation_graphe.c list.c
+SOURCES = main.c uninominale.c condorcet_minimax.c modules/lecture_csv.c modules/csv_votes.c jugement_majoritaire.c condorcet_paires.c creation_graphe.c list.c
 EXECUTABLE = scrutin
 TEST_SOURCES = fich_tests/tests.c
 MODULE_SOURCES = modules/lecture_csv.c jugement_majoritaire.c  uninominale.c condorcet_minimax.c list.c
