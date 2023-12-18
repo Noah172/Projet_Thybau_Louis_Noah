@@ -1,3 +1,0 @@
-[Uninominale] Début du scrutin à un tour
-[Uninominale 1 Tour] Fin du scrutin
-[38;5;208mMode de scrutin : Uninominale 1 tour, 5 candidats, 10 votants, vainqueur = Baba au rhum, score = 20.000000 pourcents

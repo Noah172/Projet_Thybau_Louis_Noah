@@ -27,18 +27,32 @@
  */
 char* trouver_vainqueur(t_mat_char_star_dyn *mat_votes) {
 	int nb_candidats = mat_votes->cols - 4;
+	int nb_votants = mat_votes->rows-1;
+	int min[nb_votants];
 
 	int *scores = (int *)malloc(nb_candidats * sizeof(int));
 	for (int i = 0; i < nb_candidats; ++i) {
 		scores[i] = 0;
 	}
+	for (int row = 1; row < mat_votes->rows; ++row) {
+		min[row]=atoi(mat_votes->data[row][4]);
+		for (int col = 4; col < mat_votes->cols; ++col) {
+			if (min[row]>atoi(mat_votes->data[row][col])) {
+				min[row]=atoi(mat_votes->data[row][col]);
+			}
+		}
+	}
 
 	for (int row = 1; row < mat_votes->rows; ++row) {
+		bool a_vote=false;
 		for (int col = 4; col < mat_votes->cols; ++col) {
 			int vote = atoi(mat_votes->data[row][col]);
-			if (vote > 0) {
-				scores[col - 4] += vote;
+			if (vote==min[row] && !a_vote) {
+				scores[col - 4] += 1;
+				a_vote=true;
+
 			}
+
 		}
 	}
 	int max_score = scores[0];
@@ -84,6 +98,7 @@ float calculer_score(t_mat_char_star_dyn *mat_votes, char *vainqueur) {
 			break;
 		}
 	}
+
 	float total_winner_votes = 0;
 	for (int row = 1; row < mat_votes->rows; ++row) {
 		int min_vote = atoi(mat_votes->data[row][4]);
@@ -150,11 +165,23 @@ char* uninominale_deux_tours(t_mat_char_star_dyn *mat_votes,FILE *fichier) {
 	float score_candidat2=0;
 	int vainqueur1=0;
 	float tab[nb_candidats];
+	int min[nb_votants];
+
+	for (int row = 1; row < mat_votes->rows; ++row) {
+		min[row]=atoi(mat_votes->data[row][4]);
+		for (int col = 4; col < mat_votes->cols; ++col) {
+			if (min[row]>atoi(mat_votes->data[row][col])) {
+				min[row]=atoi(mat_votes->data[row][col]);
+			}
+		}
+	}
 
 	for (int i = 0; i < nb_candidats; i++) {
 		tab[i]=0;
 		for (int j = 0; j < nb_votants; j++) {
-			tab[i]+=atoi(mat_votes->data[j+1][i+4]);
+			if (atoi(mat_votes->data[j+1][i+4])==min[j]) {
+				tab[i]+=1;
+			}
 		}
 		if (tab[i]>score_candidat1) {
 			score_candidat2=score_candidat1;

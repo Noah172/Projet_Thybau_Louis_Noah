@@ -153,14 +153,15 @@ void test_jugement_majoritaire(char *fichier_csv,char *vainqueur_attendu) {
 
 int main() {
     // UNINOMINALE 1 TOUR
-    test_uninominale_1_tour("fich_tests/vote10.csv", "Baba au rhum");
-    test_uninominale_1_tour("fich_tests/vote100.csv", "Astérix");
-    test_uninominale_1_tour("fich_tests/ballots_va.csv","D");
+    test_uninominale_1_tour("fich_tests/vote10.csv", "Charlotte aux poires");
+    test_uninominale_1_tour("fich_tests/vote100.csv", "Obélix");
+    test_uninominale_1_tour("fich_tests/ballots_va.csv","A");
 
     // UNINOMINALE 2 TOURS
-    test_uninominale_2_tours("fich_tests/vote10.csv", "Baba au rhum");
-    test_uninominale_2_tours("fich_tests/vote100.csv", "Astérix");//ou Assurenceousrisque
-    test_uninominale_2_tours("fich_tests/ballots_va.csv","D");
+    test_uninominale_2_tours("fich_tests/vote10.csv", "Charlotte aux poires");
+    test_uninominale_2_tours("fich_tests/vote100.csv", "Idéfix");
+    test_uninominale_2_tours("fich_tests/ballots_va.csv","A");
+
 
     // CONCORDET MINIMAX
     test_condorcet_minimax("fich_tests/vote10.csv", "Charlotte aux poires");
