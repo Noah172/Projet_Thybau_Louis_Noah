@@ -10,8 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-t_mat_int_dyn
-creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
+t_mat_int_dyn creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
   DynamicList liste_candidat;
   initDynamicList(&liste_candidat);
 
@@ -53,8 +52,7 @@ creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
   return matrice_duel;
 }
 
-t_mat_int_dyn
-creation_matrice_int_depuis_char(t_mat_char_star_dyn *matrice_char) {
+t_mat_int_dyn creation_matrice_int_depuis_char(t_mat_char_star_dyn *matrice_char) {
   t_mat_int_dyn matrice_duel;
   matrice_duel.cols = matrice_char->cols;
   matrice_duel.rows = matrice_char->rows - 1;
@@ -89,7 +87,7 @@ int d;
 int o;
 int m;
 char *param_o;
-char *param_m;
+DynamicList param_m;
 
 void lire_balise(int argc, char *argv[]) {
 
@@ -125,8 +123,15 @@ void lire_balise(int argc, char *argv[]) {
     }
     if (option == 'm') {
       printf("Applique la/les méthodes de scrutins donnée.s juste après\n\n");
-      printf("NOM du fichier : %s\n", optarg);
-      param_m = optarg;
+      initDynamicList(&param_m);
+
+      optarg = strtok(optarg, ",");
+
+      while (optarg != NULL) {
+        add(&param_m, optarg, CHAR_TYPE);
+
+        optarg = strtok(NULL, ",");
+      }
       m = 1;
     }
   }
@@ -176,15 +181,17 @@ int main(int argc, char *argv[]) {
     afficherGraphe(graphe);*/
   }
   FILE *fichier = stdout;
-  
-  if (param_o != NULL) {
-    fichier = fopen(param_o,"w"); // Ouverture du fichier en mode écriture ("w")
 
-    if (fichier == NULL) {
-      fichier = stdout;
-    }
-  }
-  
+   if(o){
+     if (param_o != NULL) {
+       fichier = fopen(param_o,"w"); // Ouverture du fichier en mode écriture
+
+       if (fichier == NULL) {
+         fichier = stdout;
+       }
+     }
+   }
+
   char *vainqueur_condor = NULL;
   char *vainqueur_uni1 = NULL;
   ;
@@ -194,23 +201,27 @@ int main(int argc, char *argv[]) {
   ;
 
   if (m) {
-    if (strcmp(param_m, "uni1") == 0) {
-      // vainqueur_uni1 = methodeUninominales(..., fichier);
-    } else if (strcmp(param_m, "uni2") == 0) {
-      // vainqueur_uni2 = methodeUninominales(..., fichier);
-    } else if (strcmp(param_m, "cm") == 0) {
-      vainqueur_condor = methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
-    } else if (strcmp(param_m, "cp") == 0) {
-      // PAS IMPLÉMENTÉ :/
-    } else if (strcmp(param_m, "cs") == 0) {
-      // PAS IMPLÉMENTÉ :/
-    } else if (strcmp(param_m, "jm") == 0) {
-      // vainqueur_jm = jugementMajoritaire(..., fichier);
-    } else if (strcmp(param_m, "all") == 0) {
-      // vainqueur_uni1 = methodeUninominales(..., fichier);
-      // vainqueur_uni2 = methodeUninominales(..., fichier);
-      vainqueur_condor = methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
-      // vainqueur_jm = jugementMajoritaire(..., fichier);
+    for (int i = 0; i < param_m.size; i++) {
+      if (strcmp(get_char(&param_m, i), "uni1") == 0) {
+        // vainqueur_uni1 = methodeUninominales(..., fichier);
+      } else if (strcmp(get_char(&param_m, i), "uni2") == 0) {
+        // vainqueur_uni2 = methodeUninominales(..., fichier);
+      } else if (strcmp(get_char(&param_m, i), "cm") == 0) {
+        vainqueur_condor =
+            methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+      } else if (strcmp(get_char(&param_m, i), "cp") == 0) {
+        // PAS IMPLÉMENTÉ :/
+      } else if (strcmp(get_char(&param_m, i), "cs") == 0) {
+        // PAS IMPLÉMENTÉ :/
+      } else if (strcmp(get_char(&param_m, i), "jm") == 0) {
+        // vainqueur_jm = jugementMajoritaire(..., fichier);
+      } else if (strcmp(get_char(&param_m, i), "all") == 0) {
+        // vainqueur_uni1 = methodeUninominales(..., fichier);
+        // vainqueur_uni2 = methodeUninominales(..., fichier);
+        vainqueur_condor =
+            methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+        // vainqueur_jm = jugementMajoritaire(..., fichier);
+      }
     }
   }
 
