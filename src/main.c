@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "condorcet_paires.h"
 
 t_mat_int_dyn
 creation_matrice_int_depuis_vote_ballots(t_mat_char_star_dyn *mat_votes) {
@@ -219,7 +220,8 @@ int main(int argc, char *argv[]) {
           printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET MINIMAX\033[1;34m======================\n============================================================\n\n\033[0m\n");
         methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier,nb_votants);
       } else if (strcmp(get_char(&param_m, i), "cp") == 0) {
-        // vainqueur_condor_paires = "NULL";
+         printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET PAIRES\033[1;34m=======================\n============================================================\n\n\033[0m\n");
+        CondorcetouPaires(matrice_duels,liste_candidat, fichier,nb_votants);
       } else if (strcmp(get_char(&param_m, i), "cs") == 0) {
         // vainqueur_condor__schulze = "NULL";
       } else if (strcmp(get_char(&param_m, i), "jm") == 0) {
@@ -236,6 +238,9 @@ int main(int argc, char *argv[]) {
         printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET MINIMAX\033[1;34m======================\n============================================================\n\n\033[0m\n");
         methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier,nb_votants);
 
+        printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mCONDORCET PAIRES\033[1;34m=======================\n============================================================\n\n\033[0m\n");
+        methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier,nb_votants);
+
         printf("\n\n\033[1;34m============================================================\n=====================\033[1;31mJUGEMENT MAJORITAIRE\033[1;34m===================\n============================================================\n\n\033[0m");
         jugementMajoritaire(mat_votes,fichier);
 
@@ -243,16 +248,6 @@ int main(int argc, char *argv[]) {
       }
     }
   }
-  Graph* graph = createGraph();
-
-  addNode(graph, "A");
-  addNode(graph, "B");
-  addNode(graph, "C");
- 
-  addEdge(graph->sommets[0], graph->sommets[1], 5);
-  addEdge(graph->sommets[1], graph->sommets[2], 8);
-
-  printGraph(graph);
 
   free(nom_fichier);
   return 0;
