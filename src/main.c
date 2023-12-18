@@ -122,16 +122,21 @@ void lire_balise(int argc, char *argv[]) {
       o = 1;
     }
     if (option == 'm') {
-      printf("Applique la/les méthodes de scrutins donnée.s juste après\n\n");
+      printf("Applique la/les méthodes de scrutins suivantes :  ");
       initDynamicList(&param_m);
 
       optarg = strtok(optarg, ",");
 
       while (optarg != NULL) {
+        if(strcmp(optarg,"all") == 0)
+          printf("Toutes les méthodes ");
+        else
+          printf("%s ", optarg);
         add(&param_m, optarg, CHAR_TYPE);
 
         optarg = strtok(NULL, ",");
       }
+      printf("\n\n");
       m = 1;
     }
   }
@@ -193,7 +198,10 @@ int main(int argc, char *argv[]) {
      }
    }
 
-  char *vainqueur_condor = NULL;
+  char *vainqueur_condor_minimax = NULL;
+  char *vainqueur_condor_paires = NULL;
+  char *vainqueur_condor__schulze = NULL;
+
   char *vainqueur_uni1 = NULL;
   ;
   char *vainqueur_uni2 = NULL;
@@ -208,25 +216,25 @@ int main(int argc, char *argv[]) {
       } else if (strcmp(get_char(&param_m, i), "uni2") == 0) {
         // vainqueur_uni2 = methodeUninominales(..., fichier);
       } else if (strcmp(get_char(&param_m, i), "cm") == 0) {
-        vainqueur_condor =
-            methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+          vainqueur_condor_minimax = methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
       } else if (strcmp(get_char(&param_m, i), "cp") == 0) {
-        // PAS IMPLÉMENTÉ :/
+        vainqueur_condor_paires = "NULL";
       } else if (strcmp(get_char(&param_m, i), "cs") == 0) {
-        // PAS IMPLÉMENTÉ :/
+        vainqueur_condor__schulze = "NULL";
       } else if (strcmp(get_char(&param_m, i), "jm") == 0) {
         // vainqueur_jm = jugementMajoritaire(..., fichier);
       } else if (strcmp(get_char(&param_m, i), "all") == 0) {
         // vainqueur_uni1 = methodeUninominales(..., fichier);
         // vainqueur_uni2 = methodeUninominales(..., fichier);
-        vainqueur_condor =
-            methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+          vainqueur_condor_minimax = methodeCondorcetMinimax(matrice_duels, liste_candidat, fichier);
+        vainqueur_condor_paires = "NULL";
+        vainqueur_condor__schulze = "NULL";
         // vainqueur_jm = jugementMajoritaire(..., fichier);
       }
     }
   }
 
-  if (vainqueur_condor != NULL) {
+  if (vainqueur_condor_minimax != NULL) {
     printf("\n\n\033[1;34m====================================================="
            "======\n");
     printf("=====================\033[1;31mCONDORCET "
@@ -234,14 +242,34 @@ int main(int argc, char *argv[]) {
     printf("============================================================"
            "\n\n\033[0m");
 
-    if (strcmp(vainqueur_condor, "NULL") == 0) {
+    if (strcmp(vainqueur_condor_minimax, "NULL") == 0) {
       printf("Il n'y a pas de vainqueur par la méthode de Condorcet Minimax\n");
     } else {
       printf("Le vainqueur par la méthode de Condorcet Minimax est %s\n",
-             vainqueur_condor);
+        vainqueur_condor_minimax);
     }
   }
 
+  if (vainqueur_condor_paires != NULL) {
+    printf("\n\n\033[1;34m====================================================="
+           "======\n");
+    printf("=====================\033[1;31mCONDORCET PAIRES\033[1;34m======================\n");
+    printf("============================================================"
+           "\n\n\033[0m");
+
+    printf("MÉTHODE PAS IMPLÉMENTÉ\n");
+  }
+
+  if (vainqueur_condor__schulze != NULL) {
+    printf("\n\n\033[1;34m====================================================="
+           "======\n");
+    printf("=====================\033[1;31mCONDORCET SCHULZE\033[1;34m======================\n");
+    printf("============================================================"
+           "\n\n\033[0m");
+
+    printf("MÉTHODE PAS IMPLÉMENTÉ\n");
+  }
+  
   if (vainqueur_uni1 != NULL) {
     printf("\n\n\033[1;34m====================================================="
            "======\n");
